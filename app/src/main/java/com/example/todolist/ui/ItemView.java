@@ -1,30 +1,89 @@
 package com.example.todolist.ui;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import com.example.todolist.R;
 import com.example.todolist.data.Item;
 
+import java.util.Locale;
+
 public class ItemView extends LinearLayout {
-    private Item item;
+    private final Item item;
 
     public ItemView(Context context, Item item) {
         super(context);
         this.item = item;
-        TextView nameView = new TextView(getContext());
+        setBackgroundResource(R.drawable.item_background);
+
+        LayoutParams a = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        a.setMargins(10, 10, 10, 10);
+        a.gravity = Gravity.CENTER;
+        setLayoutParams(a);
+
+        ContextThemeWrapper textThemeWrapper = new ContextThemeWrapper(context, R.style.text);
+        ContextThemeWrapper changeCountThemeWrapper = new ContextThemeWrapper(context, R.style.changeCount);
+
+        TextView nameView = new TextView(textThemeWrapper, null, R.style.text);
         nameView.setText(item.getItemName());
-        setBackgroundResource(R.color.red_500);
+        nameView.setGravity(Gravity.CENTER_VERTICAL);
+        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 10);
+        nameLayoutParams.gravity = Gravity.CENTER;
+        nameLayoutParams.setMargins(50, 10, 0, 10);
+        nameView.setLayoutParams(nameLayoutParams);
 
-        TextView countView = new TextView(getContext());
+        LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        countLayoutParams.gravity = Gravity.CENTER;
+        countLayoutParams.setMargins(0, 10, 0, 10);
+
+        TextView countView = new TextView(textThemeWrapper, null, R.style.text);
+        countView.setGravity(Gravity.CENTER);
         countView.setText(Integer.toString(item.getIdealCount()));
+        countView.setLayoutParams(countLayoutParams);
 
-        Button button = new Button(getContext());
-        button.setText("+");
+        TextView currentCountView = new TextView(textThemeWrapper, null, R.style.text);
+        currentCountView.setText(Integer.toString(item.getCurrCount()));
+        currentCountView.setLayoutParams(countLayoutParams);
+        currentCountView.setBackgroundResource(R.drawable.item_background);
+        currentCountView.setGravity(Gravity.CENTER);
+        ((GradientDrawable)currentCountView.getBackground()).setColor(ContextCompat.getColor(context, R.color.red_700));
+
+        Button increase = new Button(changeCountThemeWrapper, null, R.style.changeCount);
+        increase.setText("+");
+        increase.setOnClickListener(v -> {
+            item.increaseCurrCount();
+            currentCountView.setText(Integer.toString(item.getCurrCount()));
+        });
+
+        Button decrease = new Button(changeCountThemeWrapper, null, R.style.changeCount);
+        decrease.setText("-");
+        decrease.setOnClickListener(v -> {
+            if (item.getCurrCount() <= 0)
+                return;
+
+            item.decreaseCurrCount();
+            currentCountView.setText(Integer.toString(item.getCurrCount()));
+        });
+
+        LinearLayout changeCount = new LinearLayout(context);
+        changeCount.setOrientation(VERTICAL);
+        LayoutParams changeCountLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        changeCountLayoutParams.setMargins(20, 10, 20, 10);
+        countLayoutParams.gravity = Gravity.CENTER;
+        changeCount.setLayoutParams(changeCountLayoutParams);
+        changeCount.addView(increase);
+        changeCount.addView(decrease);
 
         addView(nameView);
         addView(countView);
-        addView(button);
+        addView(currentCountView);
+        addView(changeCount);
     }
 }

@@ -19,44 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_weight="1">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical" android:id="@+id/list">
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:background="@color/red_500">
-                    <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="10"
-                            style="@style/text" android:fontFamily="serif-monospace"/>
-                    <TextView
-                            android:text="5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/ideal_count"
-                            android:layout_weight="1"
-                            android:textColor="@color/white"/>
-                    <TextView
-                            android:text="0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/curr_count"
-                            android:layout_weight="1" android:background="@color/red_700"
-                            android:textColor="@color/white"/>
-                    <Button
-                            android:text="+"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/button7" android:layout_weight="1"/>
-                    <Button
-                            android:text="edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/button8" android:layout_weight="1"
-                            style="@style/item_button"/>
-                    <Button
-                            android:text="skip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/button9" android:layout_weight="0"
-                            style="@style/item_button"/>
-                </LinearLayout>
-            </LinearLayout>
+                          android:orientation="vertical" android:id="@+id/list"/>
         </ScrollView>
         <LinearLayout
                 android:orientation="horizontal"

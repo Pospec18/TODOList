@@ -17,6 +17,7 @@ import java.util.Locale;
 
 public class ItemView extends LinearLayout {
     private final Item item;
+    private final TextView currentCountView;
 
     public ItemView(Context context, Item item) {
         super(context);
@@ -48,18 +49,16 @@ public class ItemView extends LinearLayout {
         countView.setText(Integer.toString(item.getIdealCount()));
         countView.setLayoutParams(countLayoutParams);
 
-        TextView currentCountView = new TextView(textThemeWrapper, null, R.style.text);
-        currentCountView.setText(Integer.toString(item.getCurrCount()));
+        currentCountView = new TextView(textThemeWrapper, null, R.style.text);
         currentCountView.setLayoutParams(countLayoutParams);
         currentCountView.setBackgroundResource(R.drawable.item_background);
         currentCountView.setGravity(Gravity.CENTER);
-        ((GradientDrawable)currentCountView.getBackground()).setColor(ContextCompat.getColor(context, R.color.red_700));
 
         Button increase = new Button(changeCountThemeWrapper, null, R.style.changeCount);
         increase.setText("+");
         increase.setOnClickListener(v -> {
             item.increaseCurrCount();
-            currentCountView.setText(Integer.toString(item.getCurrCount()));
+            update(context);
         });
 
         Button decrease = new Button(changeCountThemeWrapper, null, R.style.changeCount);
@@ -69,7 +68,7 @@ public class ItemView extends LinearLayout {
                 return;
 
             item.decreaseCurrCount();
-            currentCountView.setText(Integer.toString(item.getCurrCount()));
+            update(context);
         });
 
         LinearLayout changeCount = new LinearLayout(context);
@@ -85,5 +84,13 @@ public class ItemView extends LinearLayout {
         addView(countView);
         addView(currentCountView);
         addView(changeCount);
+
+        update(context);
+    }
+
+    private void update(Context context) {
+        ((GradientDrawable)getBackground()).setColor(FilledTypeToColor.primary(item.getFilledType(), context));
+        currentCountView.setText(Integer.toString(item.getCurrCount()));
+        ((GradientDrawable)currentCountView.getBackground()).setColor(FilledTypeToColor.secondary(item.getFilledType(), context));
     }
 }

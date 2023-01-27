@@ -15,8 +15,9 @@ import com.example.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ItemHolder itemHolder = new ItemHolder(SaveAndLoad.loadItems());
+    private final ItemHolder itemHolder = new ItemHolder(SaveAndLoad.loadItems());
     private Item editedItem = null;
+    private boolean creatingItem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.item_edit);
         setTitle("ADD ITEM");
         editedItem = new Item();
+        creatingItem = true;
     }
 
     public void done(View v) {
@@ -36,6 +38,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void filter(View v) {
 
+    }
+
+    public void editItem(Item item) {
+        setContentView(R.layout.item_edit);
+        setTitle("EDIT ITEM");
+        creatingItem = false;
+        editedItem = item;
+        EditText editName = findViewById(R.id.editName);
+        EditText editCount = findViewById(R.id.editIdealCount);
+        editName.setText(item.getItemName());
+        editCount.setText(Integer.toString(item.getIdealCount()));
     }
     
     public void applyEdit(View v) {
@@ -50,13 +63,17 @@ public class MainActivity extends AppCompatActivity {
         } catch (NumberFormatException nfe) {
             return;
         }
-        itemHolder.addItem(editedItem);
+
+        if(creatingItem)
+            itemHolder.addItem(editedItem);
+        creatingItem = false;
         editedItem = null;
         setMainScreen();
     }
 
     public void cancelEdit(View v) {
         editedItem = null;
+        creatingItem = false;
         setMainScreen();
     }
 
@@ -67,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.list);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             for (Item item : itemHolder.filterNoItems())
-                linearLayout.addView(new ItemView(linearLayout.getContext(), item));
+                linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));
         }
     }
 }

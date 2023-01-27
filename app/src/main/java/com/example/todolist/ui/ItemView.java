@@ -4,22 +4,22 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+import com.example.todolist.MainActivity;
 import com.example.todolist.R;
 import com.example.todolist.data.Item;
-
-import java.util.Locale;
 
 public class ItemView extends LinearLayout {
     private final Item item;
     private final TextView currentCountView;
+    private final ImageButton editButton;
 
-    public ItemView(Context context, Item item) {
+    public ItemView(Context context, Item item, MainActivity main) {
         super(context);
         this.item = item;
         setBackgroundResource(R.drawable.item_background);
@@ -58,7 +58,7 @@ public class ItemView extends LinearLayout {
         increase.setText("+");
         increase.setOnClickListener(v -> {
             item.increaseCurrCount();
-            update(context);
+            updateColors();
         });
 
         Button decrease = new Button(changeCountThemeWrapper, null, R.style.changeCount);
@@ -68,8 +68,15 @@ public class ItemView extends LinearLayout {
                 return;
 
             item.decreaseCurrCount();
-            update(context);
+            updateColors();
         });
+
+        editButton = new ImageButton(context);
+        editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_edit_icon));
+        editButton.setBackgroundResource(R.drawable.item_background);
+        ((GradientDrawable)editButton.getBackground()).setColor(ContextCompat.getColor(context, R.color.white));
+        editButton.setLayoutParams(countLayoutParams);
+        editButton.setOnClickListener(v -> main.editItem(item));
 
         LinearLayout changeCount = new LinearLayout(context);
         changeCount.setOrientation(VERTICAL);
@@ -84,13 +91,15 @@ public class ItemView extends LinearLayout {
         addView(countView);
         addView(currentCountView);
         addView(changeCount);
-
-        update(context);
+        addView(editButton);
+        updateColors();
     }
 
-    private void update(Context context) {
+    private void updateColors() {
+        Context context = getContext();
         ((GradientDrawable)getBackground()).setColor(FilledTypeToColor.primary(item.getFilledType(), context));
         currentCountView.setText(Integer.toString(item.getCurrCount()));
         ((GradientDrawable)currentCountView.getBackground()).setColor(FilledTypeToColor.secondary(item.getFilledType(), context));
+        editButton.setColorFilter(FilledTypeToColor.primary(item.getFilledType(), context), android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 }

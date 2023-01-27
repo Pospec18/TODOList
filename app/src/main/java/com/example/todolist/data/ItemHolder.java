@@ -26,4 +26,8 @@ public class ItemHolder {
                 .filter(predicate)
                 .collect(Collectors.toList());
     }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
 }

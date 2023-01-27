@@ -28,14 +28,17 @@
             <Button
                     android:text="add"
                     android:id="@+id/add"
+                    android:onClick="add"
                     style="@style/bottom_panel_button"/>
             <Button
                     android:text="done"
                     android:id="@+id/done"
+                    android:onClick="done"
                     style="@style/bottom_panel_button"/>
             <Button
                     android:text="filter"
                     android:id="@+id/filter"
+                    android:onClick="filter"
                     style="@style/bottom_panel_button"/>
             <Button
                     android:text="setting"

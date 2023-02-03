@@ -58,6 +58,7 @@ public class ItemView extends LinearLayout {
         increase.setText("+");
         increase.setOnClickListener(v -> {
             item.increaseCurrCount();
+            main.saveItems();
             updateColors();
         });
 
@@ -68,6 +69,7 @@ public class ItemView extends LinearLayout {
                 return;
 
             item.decreaseCurrCount();
+            main.saveItems();
             updateColors();
         });
 

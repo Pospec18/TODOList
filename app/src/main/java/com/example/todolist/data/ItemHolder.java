@@ -1,14 +1,16 @@
 package com.example.todolist.data;
 
+import android.content.Context;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ItemHolder {
-    private List<Item> items;
+public class ItemHolder implements Serializable {
+    private final List<Item> items;
 
     public ItemHolder(List<Item> items) {
         this.items = items;
@@ -33,5 +35,9 @@ public class ItemHolder {
 
     public void deleteItem(Item item) {
         items.remove(item);
+    }
+
+    public void save(Context context) {
+        SaveAndLoad.saveItems(items, context);
     }
 }

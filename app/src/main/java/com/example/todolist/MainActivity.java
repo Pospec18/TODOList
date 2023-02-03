@@ -2,9 +2,7 @@ package com.example.todolist;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +13,14 @@ import com.example.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final ItemHolder itemHolder = new ItemHolder(SaveAndLoad.loadItems()); // TODO: allow multiple lists
+    private ItemHolder itemHolder; // TODO: allow multiple lists
     private Item editedItem = null;
     private boolean creatingItem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        itemHolder = new ItemHolder(SaveAndLoad.loadItems(getApplicationContext()));
         setMainScreen();
     }
 
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         creatingItem = false;
         editedItem = null;
         setMainScreen();
+        saveItems();
     }
 
     public void cancelEdit(View v) {
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         itemHolder.deleteItem(editedItem);
         editedItem = null;
         setMainScreen();
+        saveItems();
     }
 
     private void setMainScreen() {
@@ -99,5 +100,9 @@ public class MainActivity extends AppCompatActivity {
             setTitle("EDIT ITEM");
 
         findViewById(R.id.deleteItem).setVisibility(creating ? View.GONE : View.VISIBLE);
+    }
+
+    public void saveItems() {
+        itemHolder.save(getApplicationContext());
     }
 }

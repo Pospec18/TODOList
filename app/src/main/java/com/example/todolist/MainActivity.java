@@ -15,7 +15,7 @@ import com.example.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final ItemHolder itemHolder = new ItemHolder(SaveAndLoad.loadItems());
+    private final ItemHolder itemHolder = new ItemHolder(SaveAndLoad.loadItems()); // TODO: allow multiple lists
     private Item editedItem = null;
     private boolean creatingItem = false;
 
@@ -26,10 +26,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View v) {
-        setContentView(R.layout.item_edit);
-        setTitle("ADD ITEM");
         editedItem = new Item();
-        creatingItem = true;
+        setEditScreen(true);
     }
 
     public void done(View v) {
@@ -41,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editItem(Item item) {
-        setContentView(R.layout.item_edit);
-        setTitle("EDIT ITEM");
-        creatingItem = false;
+        setEditScreen(false);
         editedItem = item;
         EditText editName = findViewById(R.id.editName);
         EditText editCount = findViewById(R.id.editIdealCount);
@@ -77,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
         setMainScreen();
     }
 
+    public void deleteItem(View v) {
+        itemHolder.deleteItem(editedItem);
+        editedItem = null;
+        setMainScreen();
+    }
+
     private void setMainScreen() {
         setContentView(R.layout.activity_main);
         setTitle("LIST");
@@ -86,5 +88,16 @@ public class MainActivity extends AppCompatActivity {
             for (Item item : itemHolder.filterNoItems())
                 linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));
         }
+    }
+
+    private void setEditScreen(boolean creating) {
+        creatingItem = creating;
+        setContentView(R.layout.item_edit);
+        if (creating)
+            setTitle("ADD ITEM");
+        else
+            setTitle("EDIT ITEM");
+
+        findViewById(R.id.deleteItem).setVisibility(creating ? View.GONE : View.VISIBLE);
     }
 }

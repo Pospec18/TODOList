@@ -30,4 +30,8 @@ public class ItemHolder {
     public void addItem(Item item) {
         items.add(item);
     }
+
+    public void deleteItem(Item item) {
+        items.remove(item);
+    }
 }

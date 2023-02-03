@@ -12,7 +12,7 @@ public class SaveAndLoad {
     }
 
     public static void saveItems(List<Item> items) {
-
+        // TODO: save and load Items
     }
 
     public static List<Item> loadPrevItems() {

@@ -19,30 +19,37 @@
                 android:text="name:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/nameText" style="@style/text"
-                android:gravity="left"/>
+                android:gravity="left" android:fontFamily="monospace" android:textAllCaps="true"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/editName" android:minHeight="48dp"
-                android:inputType="text" style="@style/input_field"/>
+                android:inputType="text" style="@style/input_field" android:hint="name of the item"/>
         <TextView
                 android:text="ideal count:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/idealCountText" style="@style/text"
-                android:gravity="left"/>
+                android:gravity="left" android:textAllCaps="true"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editIdealCount" android:minHeight="48dp" style="@style/input_field"/>
+                android:id="@+id/editIdealCount" android:minHeight="48dp" style="@style/input_field"
+                android:hint="ideal count of items"/>
         <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/listDivider"
                 android:layout_weight="10"/>
+        <Button
+                android:text="delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/deleteItem" android:layout_weight="0"
+                android:onClick="deleteItem"
+                style="@style/bottom_panel_button" android:backgroundTint="@color/red_500"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

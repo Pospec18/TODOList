@@ -19,25 +19,28 @@
                 android:text="name:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/nameText" style="@style/text"
-                android:gravity="left" android:fontFamily="monospace" android:textAllCaps="true"/>
+                android:gravity="start" android:fontFamily="monospace" android:textAllCaps="true"
+                android:paddingLeft="10dp" android:paddingRight="10dp"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/editName" android:minHeight="48dp"
-                android:inputType="text" style="@style/input_field" android:hint="name of the item"/>
+                android:inputType="text" style="@style/input_field" android:hint="name of the item"
+                android:autofillHints=""/>
         <TextView
                 android:text="ideal count:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/idealCountText" style="@style/text"
-                android:gravity="left" android:textAllCaps="true"/>
+                android:textAllCaps="true" android:paddingLeft="10dp"
+                android:paddingRight="10dp" android:gravity="start"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editIdealCount" android:minHeight="48dp" style="@style/input_field"
-                android:hint="ideal count of items"/>
+                android:hint="ideal number of this items" android:autofillHints=""/>
         <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
@@ -47,9 +50,9 @@
         <Button
                 android:text="delete"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/deleteItem" android:layout_weight="0"
+                android:layout_height="wrap_content" android:id="@+id/deleteItem"
                 android:onClick="deleteItem"
-                style="@style/bottom_panel_button" android:backgroundTint="@color/red_500"/>
+                style="@style/bottom_panel_button" android:backgroundTint="@color/red_500" android:layout_weight="0"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -58,7 +61,7 @@
             <Button
                     android:text="apply"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/applyEdit" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:id="@+id/addList" android:layout_weight="1"
                     android:onClick="applyEdit"
                     style="@style/bottom_panel_button"/>
             <Button

@@ -12,6 +12,7 @@
             android:layout_height="match_parent">
         <Button
                 android:text="change list"
+                android:onClick="changeList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/button4"
                 android:backgroundTint="@color/blue_700"/>

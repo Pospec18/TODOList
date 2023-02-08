@@ -1,6 +1,5 @@
 package com.example.todolist.data;
 
-import android.content.Context;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 
@@ -11,9 +10,13 @@ import java.util.stream.Collectors;
 
 public class ItemHolder implements Serializable {
     private final List<Item> items;
+    private String listName;
+    private transient String fileName;
 
-    public ItemHolder(List<Item> items) {
+    public ItemHolder(List<Item> items, String listName, String fileName) {
         this.items = items;
+        this.listName = listName;
+        this.fileName = fileName;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -37,7 +40,19 @@ public class ItemHolder implements Serializable {
         items.remove(item);
     }
 
-    public void save(Context context) {
-        SaveAndLoad.saveItems(items, context);
+    public String getListName() {
+        return listName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

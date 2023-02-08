@@ -7,26 +7,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveAndLoad {
-    private final static String filePath = "list";
-    public static List<Item> loadItems(Context context) {
+    private final static String listsPath = "lists";
+
+    public static ItemHolder loadItems(String filePath, Context context) {
         try (ObjectInputStream oos = new ObjectInputStream(context.openFileInput(filePath))) {
-            return (List<Item>)oos.readObject();
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found, creating new one");
-            saveItems(new ArrayList<>(), context);
+            ItemHolder items = (ItemHolder) oos.readObject();
+            items.setFileName(filePath);
+            return items;
+        } catch (FileNotFoundException ignored) {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ArrayList<Item> a = new ArrayList<>();
-        a.add(new Item());
-        return a;
+        ArrayList<Item> itemsList = new ArrayList<>();
+        itemsList.add(new Item());
+        return new ItemHolder(itemsList, "New List", filePath);
     }
 
-    public static void saveItems(List<Item> items, Context context) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(context.openFileOutput(filePath, Context.MODE_PRIVATE))) {
+    public static void saveItems(ItemHolder items, Context context) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(context.openFileOutput(items.getFileName(), Context.MODE_PRIVATE))) {
             oos.writeObject(items);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static ItemListsHolder loadLists(Context context) {
+        try (ObjectInputStream oos = new ObjectInputStream(context.openFileInput(listsPath))) {
+            return (ItemListsHolder) oos.readObject();
+        } catch (FileNotFoundException ignored) {
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        List<String> fileNames = new ArrayList<>();
+        fileNames.add("General");
+        return new ItemListsHolder(fileNames, 0);
+    }
+
+    public static void saveLists(ItemListsHolder itemListsHolder, Context context) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(context.openFileOutput(listsPath, Context.MODE_PRIVATE))) {
+            oos.writeObject(itemListsHolder);
         } catch (IOException e) {
             e.printStackTrace();
         }

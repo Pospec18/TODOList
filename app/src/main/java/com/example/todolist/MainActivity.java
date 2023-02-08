@@ -8,19 +8,24 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.data.Item;
 import com.example.todolist.data.ItemHolder;
+import com.example.todolist.data.ItemListsHolder;
 import com.example.todolist.data.SaveAndLoad;
 import com.example.todolist.ui.ItemView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ItemHolder itemHolder; // TODO: allow multiple lists
     private Item editedItem = null;
     private boolean creatingItem = false;
+    private ItemListsHolder lists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemHolder = new ItemHolder(SaveAndLoad.loadItems(getApplicationContext()));
+        lists = SaveAndLoad.loadLists(getApplicationContext());
+        itemHolder = SaveAndLoad.loadItems(lists.getLastUsedList(), getApplicationContext());
         setMainScreen();
     }
 
@@ -103,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveItems() {
-        itemHolder.save(getApplicationContext());
+        SaveAndLoad.saveItems(itemHolder, getApplicationContext());
+    }
+
+    public void changeList(View v) {
+        setContentView(R.layout.screen_of_lists);
+        LinearLayout linearLayout = findViewById(R.id.list);
     }
 }

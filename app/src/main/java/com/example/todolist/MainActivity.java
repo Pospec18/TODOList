@@ -11,6 +11,7 @@ import com.example.todolist.data.ItemHolder;
 import com.example.todolist.data.ItemListsHolder;
 import com.example.todolist.data.SaveAndLoad;
 import com.example.todolist.ui.ItemView;
+import com.example.todolist.ui.ListView;
 
 import java.util.List;
 
@@ -25,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lists = SaveAndLoad.loadLists(getApplicationContext());
-        itemHolder = SaveAndLoad.loadItems(lists.getLastUsedList(), getApplicationContext());
-        setMainScreen();
+        setAndShowItemHolder(lists.getLastUsedList());
     }
 
     public void add(View v) {
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setMainScreen() {
         setContentView(R.layout.activity_main);
-        setTitle("LIST");
+        setTitle("LIST: " + itemHolder.getListName().toUpperCase());
 
         LinearLayout linearLayout = findViewById(R.id.list);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -113,6 +113,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeList(View v) {
         setContentView(R.layout.screen_of_lists);
+        setTitle("LIST TO CHOOSE");
         LinearLayout linearLayout = findViewById(R.id.list);
+        for (String name : lists.getListsFiles())
+            linearLayout.addView(new ListView(linearLayout.getContext(), name, this));
+    }
+
+    public void setAndShowItemHolder(String listFileName) {
+        itemHolder = SaveAndLoad.loadItems(listFileName, getApplicationContext());
+        setMainScreen();
     }
 }

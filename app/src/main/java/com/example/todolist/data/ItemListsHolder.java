@@ -15,4 +15,8 @@ public class ItemListsHolder {
     public String getLastUsedList() {
         return  listsFiles.get(lastUsedListIdx);
     }
+
+    public List<String> getListsFiles() {
+        return listsFiles;
+    }
 }

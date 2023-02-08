@@ -41,6 +41,7 @@ public class SaveAndLoad {
 
         List<String> fileNames = new ArrayList<>();
         fileNames.add("General");
+        fileNames.add("Other");
         return new ItemListsHolder(fileNames, 0);
     }
 

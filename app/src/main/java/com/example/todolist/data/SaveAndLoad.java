@@ -9,8 +9,8 @@ import java.util.List;
 public class SaveAndLoad {
     private final static String listsPath = "lists";
 
-    public static ItemHolder loadItems(String filePath, Context context) {
-        try (ObjectInputStream oos = new ObjectInputStream(context.openFileInput(filePath))) {
+    public static ItemHolder loadItems(String fileName, Context context) {
+        try (ObjectInputStream oos = new ObjectInputStream(context.openFileInput(fileName))) {
             return (ItemHolder) oos.readObject();
         } catch (FileNotFoundException ignored) {
         } catch (IOException | ClassNotFoundException e) {
@@ -18,7 +18,7 @@ public class SaveAndLoad {
         }
         ArrayList<Item> itemsList = new ArrayList<>();
         itemsList.add(new Item());
-        return new ItemHolder(itemsList, "New List", filePath);
+        return new ItemHolder(itemsList, fileName);
     }
 
     public static void saveItems(ItemHolder items, Context context) {
@@ -39,10 +39,9 @@ public class SaveAndLoad {
             e.printStackTrace();
         }
 
-        List<String> fileNames = new ArrayList<>();
-        fileNames.add("General");
-        fileNames.add("Other");
-        return new ItemListsHolder(fileNames, 0);
+        List<ListNames> lists = new ArrayList<>();
+        lists.add(new ListNames("General", "General"));
+        return new ItemListsHolder(lists, 0, 0);
     }
 
     public static void saveLists(ItemListsHolder itemListsHolder, Context context) {

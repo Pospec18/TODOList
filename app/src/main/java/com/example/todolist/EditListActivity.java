@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.Item;
-import com.example.todolist.data.ItemHolder;
 import com.example.todolist.data.ItemListsHolder;
+import com.example.todolist.data.ListNames;
 import com.example.todolist.data.SaveAndLoad;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
     private ItemListsHolder lists;
-    private String listName;
+    private ListNames list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +21,10 @@ public class EditListActivity extends AppCompatActivity {
             creatingList = extras.getBoolean("creatingList");
             lists = (ItemListsHolder) extras.getSerializable("lists");
 
-            if (!creatingList)
-                listName = extras.getString("listName");
+            if (!creatingList){
+                int index = extras.getInt("itemIdx");
+                list = lists.getListsData().get(index);
+            }
         }
 
         setContentView(R.layout.list_edit);
@@ -32,7 +33,7 @@ public class EditListActivity extends AppCompatActivity {
         else {
             setTitle("EDIT LIST");
             EditText editName = findViewById(R.id.editName);
-            editName.setText(listName);
+            editName.setText(list.getListName());
         }
 
         findViewById(R.id.deleteItem).setVisibility(creatingList ? View.GONE : View.VISIBLE);
@@ -43,12 +44,12 @@ public class EditListActivity extends AppCompatActivity {
         if (editName.getText().length() == 0)
             return;
 
-        if(creatingList)
-            lists.getListsFiles().add(editName.getText().toString());
-        else {
-            int listIndex = lists.getListsFiles().indexOf(listName);
-            lists.getListsFiles().set(listIndex, editName.getText().toString());
+        if(creatingList) {
+            ListNames newData = new ListNames(editName.getText().toString(), lists.getNextListName());
+            lists.getListsData().add(newData);
         }
+        else
+            list.setListName(editName.getText().toString());
         SaveAndLoad.saveLists(lists, getApplicationContext());
         finish();
     }
@@ -58,9 +59,9 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void deleteList(View v) {
-        lists.getListsFiles().remove(listName);
+        lists.getListsData().remove(list);
         SaveAndLoad.saveLists(lists, getApplicationContext());
-        SaveAndLoad.deleteFile(listName, getApplicationContext());
+        SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
         finish();
     }
 }

@@ -10,12 +10,10 @@ import java.util.stream.Collectors;
 
 public class ItemHolder implements Serializable {
     private final List<Item> items;
-    private String listName;
     private final String fileName;
 
-    public ItemHolder(List<Item> items, String listName, String fileName) {
+    public ItemHolder(List<Item> items, String fileName) {
         this.items = items;
-        this.listName = listName;
         this.fileName = fileName;
     }
 
@@ -48,15 +46,7 @@ public class ItemHolder implements Serializable {
         return items.get(index);
     }
 
-    public String getListName() {
-        return listName;
-    }
-
     public String getFileName() {
         return fileName;
-    }
-
-    public void setListName(String listName) {
-        this.listName = listName;
     }
 }

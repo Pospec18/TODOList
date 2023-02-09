@@ -4,35 +4,25 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.Item;
-import com.example.todolist.data.ItemHolder;
-import com.example.todolist.data.ItemListsHolder;
-import com.example.todolist.data.SaveAndLoad;
+import com.example.todolist.data.*;
 import com.example.todolist.ui.ItemView;
-import com.example.todolist.ui.ListView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ItemHolder itemHolder; // TODO: allow multiple lists
-    private ItemListsHolder lists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lists = SaveAndLoad.loadLists(getApplicationContext());
-        setAndShowItemHolder(lists.getLastUsedList());
+        setup();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        lists = SaveAndLoad.loadLists(getApplicationContext());
-        setAndShowItemHolder(lists.getLastUsedList());
+        setup();
     }
 
     public void add(View v) {
@@ -63,9 +53,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setMainScreen() {
+    private void setup() {
+        ItemListsHolder lists = SaveAndLoad.loadLists(getApplicationContext());
+        ListNames listNames = lists.getLastUsedList();
+        itemHolder = SaveAndLoad.loadItems(listNames.getFileName(), getApplicationContext());
+
         setContentView(R.layout.activity_main);
-        setTitle("LIST: " + itemHolder.getListName().toUpperCase());
+        setTitle("LIST: " + listNames.getListName().toUpperCase());
 
         LinearLayout linearLayout = findViewById(R.id.list);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -81,10 +75,5 @@ public class MainActivity extends AppCompatActivity {
     public void changeList(View v) {
         Intent intent = new Intent(this, SwitchListActivity.class);
         startActivity(intent);
-    }
-
-    public void setAndShowItemHolder(String listFileName) {
-        itemHolder = SaveAndLoad.loadItems(listFileName, getApplicationContext());
-        setMainScreen();
     }
 }

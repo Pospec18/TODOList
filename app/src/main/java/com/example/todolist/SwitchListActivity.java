@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.data.ItemListsHolder;
+import com.example.todolist.data.ListNames;
 import com.example.todolist.data.SaveAndLoad;
 import com.example.todolist.ui.ListView;
 
@@ -30,22 +30,22 @@ public class SwitchListActivity  extends AppCompatActivity {
         setContentView(R.layout.screen_of_lists);
         setTitle("LISTS TO CHOOSE");
         LinearLayout linearLayout = findViewById(R.id.list);
-        for (String name : lists.getListsFiles())
-            linearLayout.addView(new ListView(linearLayout.getContext(), name, this));
+        for (ListNames data : lists.getListsData())
+            linearLayout.addView(new ListView(linearLayout.getContext(), data, this));
     }
 
-    public void selectList(String fileName) {
-        lists.setLastUsedListIdx(lists.getListsFiles().indexOf(fileName));
+    public void selectList(ListNames list) {
+        lists.setLastUsedListIdx(lists.getListsData().indexOf(list));
         SaveAndLoad.saveLists(lists, getApplicationContext());
         finish();
     }
 
-    public void editList(String fileName) {
+    public void editList(ListNames list) {
         Intent intent = new Intent(this, EditListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putBoolean("creatingList", false);
         bundle.putSerializable("lists", lists);
-        bundle.putString("listName", fileName);
+        bundle.putInt("itemIdx", lists.getListsData().indexOf(list));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -55,7 +55,7 @@ public class SwitchListActivity  extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putBoolean("creatingList", true);
         bundle.putSerializable("lists", lists);
-        bundle.putString("listName", null);
+        bundle.putInt("itemIdx", 0);
         intent.putExtras(bundle);
         startActivity(intent);
     }

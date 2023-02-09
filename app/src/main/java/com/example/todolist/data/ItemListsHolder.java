@@ -4,23 +4,29 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ItemListsHolder implements Serializable {
-    private final List<String> listsFiles;
+    private final List<ListNames> listsData;
     private int lastUsedListIdx = 0;
+    private int nextListID;
 
-    public ItemListsHolder(List<String> listsFiles, int lastUsedListIdx) {
-        this.listsFiles = listsFiles;
+    public ItemListsHolder(List<ListNames> listsData, int lastUsedListIdx, int nextListID) {
+        this.listsData = listsData;
         this.lastUsedListIdx = lastUsedListIdx;
+        this.nextListID = nextListID;
     }
 
-    public String getLastUsedList() {
-        return  listsFiles.get(lastUsedListIdx);
+    public ListNames getLastUsedList() {
+        return  listsData.get(lastUsedListIdx);
     }
 
-    public List<String> getListsFiles() {
-        return listsFiles;
+    public List<ListNames> getListsData() {
+        return listsData;
     }
 
     public void setLastUsedListIdx(int lastUsedListIdx) {
         this.lastUsedListIdx = lastUsedListIdx;
+    }
+
+    public String getNextListName() {
+        return "List" + nextListID++;
     }
 }

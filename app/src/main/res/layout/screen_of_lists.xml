@@ -3,6 +3,7 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
+                                                   tools:context=".SwitchListActivity"
                                                    android:background="@color/bg_200">
 
     <LinearLayout
@@ -23,6 +24,7 @@
             <ImageButton
                     app:srcCompat="@drawable/ic_add_icon"
                     android:id="@+id/add_list" style="@style/bottom_panel_icon_button"
+                    android:onClick="addList"
                     android:contentDescription="add"/>
             <ImageButton
                     app:srcCompat="@drawable/ic_add_icon"

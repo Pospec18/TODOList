@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        lists = SaveAndLoad.loadLists(getApplicationContext());
         setAndShowItemHolder(lists.getLastUsedList());
     }
 
@@ -78,11 +79,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeList(View v) {
-        setContentView(R.layout.screen_of_lists);
-        setTitle("LIST TO CHOOSE");
-        LinearLayout linearLayout = findViewById(R.id.list);
-        for (String name : lists.getListsFiles())
-            linearLayout.addView(new ListView(linearLayout.getContext(), name, this));
+        Intent intent = new Intent(this, SwitchListActivity.class);
+        startActivity(intent);
     }
 
     public void setAndShowItemHolder(String listFileName) {

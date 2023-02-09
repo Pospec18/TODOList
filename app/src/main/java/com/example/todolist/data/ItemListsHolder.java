@@ -1,9 +1,10 @@
 package com.example.todolist.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemListsHolder {
+public class ItemListsHolder implements Serializable {
     private final List<String> listsFiles;
     private int lastUsedListIdx = 0;
 
@@ -18,5 +19,9 @@ public class ItemListsHolder {
 
     public List<String> getListsFiles() {
         return listsFiles;
+    }
+
+    public void setLastUsedListIdx(int lastUsedListIdx) {
+        this.lastUsedListIdx = lastUsedListIdx;
     }
 }

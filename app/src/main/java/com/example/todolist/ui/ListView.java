@@ -11,10 +11,11 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.example.todolist.MainActivity;
 import com.example.todolist.R;
+import com.example.todolist.SwitchListActivity;
 
 public class ListView extends LinearLayout {
 
-    public ListView(Context context, String listName, MainActivity main) {
+    public ListView(Context context, String listName, SwitchListActivity activity) {
         super(context);
         setBackgroundResource(R.drawable.item_background);
         ((GradientDrawable)getBackground()).setColor(ContextCompat.getColor(context, R.color.blue_500));
@@ -43,9 +44,9 @@ public class ListView extends LinearLayout {
         ((GradientDrawable)editButton.getBackground()).setColor(ContextCompat.getColor(context, R.color.white));
         editButton.setColorFilter(ContextCompat.getColor(context, R.color.blue_500), android.graphics.PorterDuff.Mode.MULTIPLY);
         editButton.setLayoutParams(countLayoutParams);
-        editButton.setOnClickListener(v -> {});
+        editButton.setOnClickListener(v -> activity.editList(listName));
 
-        setOnClickListener(v -> main.setAndShowItemHolder(listName));
+        setOnClickListener(v -> activity.selectList(listName));
 
         addView(nameView);
         addView(editButton);

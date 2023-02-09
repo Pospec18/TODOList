@@ -11,9 +11,7 @@ public class SaveAndLoad {
 
     public static ItemHolder loadItems(String filePath, Context context) {
         try (ObjectInputStream oos = new ObjectInputStream(context.openFileInput(filePath))) {
-            ItemHolder items = (ItemHolder) oos.readObject();
-            items.setFileName(filePath);
-            return items;
+            return (ItemHolder) oos.readObject();
         } catch (FileNotFoundException ignored) {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -27,6 +25,8 @@ public class SaveAndLoad {
         try (ObjectOutputStream oos = new ObjectOutputStream(context.openFileOutput(items.getFileName(), Context.MODE_PRIVATE))) {
             oos.writeObject(items);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

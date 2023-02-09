@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class ItemHolder implements Serializable {
     private final List<Item> items;
     private String listName;
-    private transient String fileName;
+    private final String fileName;
 
     public ItemHolder(List<Item> items, String listName, String fileName) {
         this.items = items;
@@ -40,6 +40,14 @@ public class ItemHolder implements Serializable {
         items.remove(item);
     }
 
+    public int indexOf(Item item) {
+        return items.indexOf(item);
+    }
+
+    public Item getItem(int index) {
+        return items.get(index);
+    }
+
     public String getListName() {
         return listName;
     }
@@ -50,9 +58,5 @@ public class ItemHolder implements Serializable {
 
     public void setListName(String listName) {
         this.listName = listName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 }

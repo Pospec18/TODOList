@@ -15,7 +15,11 @@ public class ItemListsHolder implements Serializable {
     }
 
     public ListNames getLastUsedList() {
-        return  listsData.get(lastUsedListIdx);
+        if (listsData.size() < 1)
+            return null;
+        if (lastUsedListIdx > listsData.size())
+            lastUsedListIdx = 0;
+        return listsData.get(lastUsedListIdx);
     }
 
     public List<ListNames> getListsData() {

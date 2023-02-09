@@ -54,14 +54,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setup() {
+        setContentView(R.layout.activity_main);
+
         ItemListsHolder lists = SaveAndLoad.loadLists(getApplicationContext());
         ListNames listNames = lists.getLastUsedList();
+        if (listNames == null)
+            return;
         itemHolder = SaveAndLoad.loadItems(listNames.getFileName(), getApplicationContext());
 
-        setContentView(R.layout.activity_main);
         setTitle("LIST: " + listNames.getListName().toUpperCase());
 
         LinearLayout linearLayout = findViewById(R.id.list);
+        if (itemHolder == null || linearLayout == null)
+            return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             for (Item item : itemHolder.filterNoItems())
                 linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));

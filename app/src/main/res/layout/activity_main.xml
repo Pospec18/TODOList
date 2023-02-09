@@ -15,6 +15,7 @@
                 android:onClick="changeList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/button4"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blue_700"/>
         <ScrollView
                 android:layout_width="match_parent"

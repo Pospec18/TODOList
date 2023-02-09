@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/editName" android:minHeight="48dp"
-                android:inputType="text" style="@style/input_field" android:hint="name of the item"
+                android:inputType="text" style="@style/input_field" android:hint="name of the list"
                 android:autofillHints=""/>
         <View
                 android:id="@+id/divider"

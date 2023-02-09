@@ -3,13 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="hint_color">#80FFFFFF</color>
-    <color name="bg_200">#FF1B192D</color>
+    <color name="bg_200">#000000</color>
     <color name="bg_500">#FF000053</color>
     <color name="red_500">#FFC32A4A</color>
     <color name="red_700">#FF7B2036</color>
     <color name="green_500">#FF0FAB75</color>
     <color name="green_700">#FF2A6551</color>
+    <color name="blue_200">#6073F1</color>
     <color name="blue_500">#FF2D3AB2</color>
     <color name="blue_700">#FF1C2470</color>
 </resources>

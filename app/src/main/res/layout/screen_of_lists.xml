@@ -26,10 +26,6 @@
                     android:id="@+id/add_list" style="@style/bottom_panel_icon_button"
                     android:onClick="addList"
                     android:contentDescription="add"/>
-            <ImageButton
-                    app:srcCompat="@drawable/ic_add_icon"
-                    android:id="@+id/dummy" style="@style/bottom_panel_icon_button"
-                    android:contentDescription="add"/>
 
         </LinearLayout>
     </LinearLayout>

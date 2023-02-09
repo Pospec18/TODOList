@@ -52,4 +52,8 @@ public class SaveAndLoad {
             e.printStackTrace();
         }
     }
+
+    public static void deleteFile(String fileName, Context context) {
+        context.deleteFile(fileName);
+    }
 }

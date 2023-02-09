@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,6 +16,16 @@ public class SwitchListActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setup();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setup();
+    }
+
+    private void setup() {
         lists = SaveAndLoad.loadLists(getApplicationContext());
         setContentView(R.layout.screen_of_lists);
         setTitle("LISTS TO CHOOSE");
@@ -30,10 +41,22 @@ public class SwitchListActivity  extends AppCompatActivity {
     }
 
     public void editList(String fileName) {
-
+        Intent intent = new Intent(this, EditListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("creatingList", false);
+        bundle.putSerializable("lists", lists);
+        bundle.putString("listName", fileName);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void addList(View v) {
-
+        Intent intent = new Intent(this, EditListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("creatingList", true);
+        bundle.putSerializable("lists", lists);
+        bundle.putString("listName", null);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

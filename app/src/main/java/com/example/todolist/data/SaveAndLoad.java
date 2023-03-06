@@ -18,7 +18,7 @@ public class SaveAndLoad {
         }
         ArrayList<Item> itemsList = new ArrayList<>();
         itemsList.add(new Item());
-        return new ItemHolder(itemsList, fileName);
+        return new ItemHolder(itemsList, fileName, new Filter());
     }
 
     public static void saveItems(ItemHolder items, Context context) {

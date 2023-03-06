@@ -16,10 +16,12 @@ import java.util.stream.Collectors;
 public class ItemHolder implements Serializable, CSVSerializable {
     private final List<Item> items;
     private final String fileName;
+    private final Filter filter;
 
-    public ItemHolder(List<Item> items, String fileName) {
+    public ItemHolder(List<Item> items, String fileName, Filter filter) {
         this.items = items;
         this.fileName = fileName;
+        this.filter = filter;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -30,7 +32,7 @@ public class ItemHolder implements Serializable, CSVSerializable {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Item> filterItems(Predicate<? super Item> predicate) {
         return items.stream()
-                .filter(item -> !item.isSkipForNow())
+                .filter(filter::canShow)
                 .filter(predicate)
                 .collect(Collectors.toList());
     }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Filter implements Serializable {
+public class Filter {
     private final Set<FilledType> showTypes;
     private boolean showSkipped = false;
 

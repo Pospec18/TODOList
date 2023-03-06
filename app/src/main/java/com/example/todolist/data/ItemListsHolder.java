@@ -7,6 +7,7 @@ public class ItemListsHolder implements Serializable {
     private final List<ListNames> listsData;
     private int lastUsedListIdx = 0;
     private int nextListID;
+    private static final long serialVersionUID = 6728568169479137671L;
 
     public ItemListsHolder(List<ListNames> listsData, int lastUsedListIdx, int nextListID) {
         this.listsData = listsData;

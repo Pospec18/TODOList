@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class ItemHolder implements Serializable, CSVSerializable {
     private final List<Item> items;
     private final String fileName;
-    private final Filter filter;
+    public static final Filter filter = new Filter();
+    private static final long serialVersionUID = 5480838046586935873L;
 
-    public ItemHolder(List<Item> items, String fileName, Filter filter) {
+    public ItemHolder(List<Item> items, String fileName) {
         this.items = items;
         this.fileName = fileName;
-        this.filter = filter;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

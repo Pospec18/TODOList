@@ -12,6 +12,8 @@ public class Item implements Serializable, CSVSerializable {
     private int currCount;
     private boolean skipForNow = false;
 
+    private static final long serialVersionUID = 1714191732972138209L;
+
     public Item() {
         itemName = "name";
         idealCount = 1;

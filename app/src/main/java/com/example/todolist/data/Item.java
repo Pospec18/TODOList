@@ -1,8 +1,12 @@
 package com.example.todolist.data;
 
+import com.example.todolist.csv.CSVSerializable;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public class Item implements Serializable, CSVSerializable {
     private String itemName;
     private int idealCount;
     private int currCount;
@@ -69,5 +73,15 @@ public class Item implements Serializable {
 
     public void setSkipForNow(boolean skipForNow) {
         this.skipForNow = skipForNow;
+    }
+
+    @Override
+    public void toCSV(CSVWriter writer) {
+        writer.writeNext(new String[] { itemName, Integer.toString(idealCount), Integer.toString(currCount) });
+    }
+
+    @Override
+    public void fromCSV(CSVReader reader) {
+
     }
 }

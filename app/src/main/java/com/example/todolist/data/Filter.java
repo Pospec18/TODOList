@@ -1,6 +1,5 @@
 package com.example.todolist.data;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class Filter {
     }
 
     public boolean canShow(Item item) {
-        if (item.isSkipForNow() && !showSkipped)
+        if (item.isHide() && !showSkipped)
             return false;
         return  showTypes.contains(item.getFilledType());
     }

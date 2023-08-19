@@ -2,19 +2,17 @@ package com.example.todolist.data;
 
 import android.os.Build;
 import androidx.annotation.RequiresApi;
+import com.example.todolist.csv.CSVParser;
 import com.example.todolist.csv.CSVSerializable;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
-
-import java.io.IOException;
+import java.io.Reader;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ItemHolder implements Serializable, CSVSerializable {
-    private final List<Item> items;
+    private List<Item> items;
     private final String fileName;
     public static final Filter filter = new Filter();
     private static final long serialVersionUID = 5480838046586935873L;
@@ -58,25 +56,12 @@ public class ItemHolder implements Serializable, CSVSerializable {
     }
 
     @Override
-    public void toCSV(CSVWriter writer) {
-        writer.writeNext(new String[] {"itemName", "idealCount", "currCount"});
-        for (Item item : items)
-            item.toCSV(writer);
+    public void toCSV(Writer writer) {
+        CSVParser.writeCSV(writer, items);
     }
 
     @Override
-    public void fromCSV(CSVReader reader) {
-        try {
-            reader.readNext();
-            String[] line;
-            while ((line = reader.readNext()) != null) {
-                String itemName = line[0];
-                int idealCount = Integer.parseInt(line[1]);
-                int currentCount = Integer.parseInt(line[2]);
-                addItem(new Item(itemName, idealCount, currentCount));
-            }
-        } catch (IOException | CsvValidationException e) {
-            e.printStackTrace();
-        }
+    public void fromCSV(Reader reader) {
+         items = CSVParser.readCSV(reader, Item.class);
     }
 }

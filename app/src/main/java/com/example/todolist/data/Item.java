@@ -42,28 +42,6 @@ public class Item implements Serializable {
         }
     }
 
-    public Item(String itemName, int idealCount, int currCount) {
-        this.itemName = itemName.trim();
-        this.idealCount = idealCount;
-        this.currCount = currCount;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createdTime = LocalDateTime.now(ZoneId.of("Etc/UTC"));
-            changedTime = LocalDateTime.now(ZoneId.of("Etc/UTC"));
-        }
-    }
-
-    public Item(String itemName, int idealCount, int currCount, LocalDateTime createdTime, LocalDateTime changedTime, int numberOfChanges, boolean optional, ItemType type)
-    {
-        this.itemName = itemName.trim();
-        this.idealCount = idealCount;
-        this.currCount = currCount;
-        this.createdTime = createdTime;
-        this.changedTime = changedTime;
-        this.numberOfChanges = numberOfChanges;
-        this.type = type;
-        this.optional = optional;
-    }
-
     public String getItemName() {
         return itemName;
     }
@@ -93,14 +71,13 @@ public class Item implements Serializable {
     }
 
     public FilledType getFilledType() {
-        if (idealCount == 0)
+        if (currCount >= idealCount)
             return FilledType.FULLY;
-        if (currCount < 1)
-            return FilledType.EMPTY;
-        if (idealCount - currCount > 0)
+        if (optional)
+            return FilledType.OPTIONAL;
+        if (currCount > 0)
             return FilledType.PARTIALLY;
-        else
-            return FilledType.FULLY;
+        return FilledType.EMPTY;
     }
 
     public int getNumberOfChanges() {

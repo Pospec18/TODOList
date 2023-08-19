@@ -1,6 +1,7 @@
 package com.example.todolist.data;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -54,5 +55,17 @@ public class SaveAndLoad {
 
     public static void deleteFile(String fileName, Context context) {
         context.deleteFile(fileName);
+    }
+
+    public static void exportListToCSV(ItemHolder holder, String nameInDownladsFolder) {
+        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+        try (Writer writer = new FileWriter(new File(downloads, nameInDownladsFolder + ".csv"))) {
+            holder.toCSV(writer);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

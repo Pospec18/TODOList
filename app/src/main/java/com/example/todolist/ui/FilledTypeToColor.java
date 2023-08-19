@@ -12,6 +12,8 @@ public class FilledTypeToColor {
                 return ContextCompat.getColor(context, R.color.green_500);
             case PARTIALLY:
                 return ContextCompat.getColor(context, R.color.blue_500);
+            case OPTIONAL:
+                return ContextCompat.getColor(context, R.color.gray_500);
             default:
                 return ContextCompat.getColor(context, R.color.red_500);
         }
@@ -23,6 +25,8 @@ public class FilledTypeToColor {
                 return ContextCompat.getColor(context, R.color.green_700);
             case PARTIALLY:
                 return ContextCompat.getColor(context, R.color.blue_700);
+            case OPTIONAL:
+                return ContextCompat.getColor(context, R.color.gray_700);
             default:
                 return ContextCompat.getColor(context, R.color.red_700);
         }

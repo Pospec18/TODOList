@@ -12,4 +12,7 @@
     <color name="blue_200">#6073F1</color>
     <color name="blue_500">#FF2D3AB2</color>
     <color name="blue_700">#FF1C2470</color>
+    <color name="gray_200">#555555</color>
+    <color name="gray_500">#303030</color>
+    <color name="gray_700">#252525</color>
 </resources>

@@ -13,6 +13,7 @@ public class Filter {
         showTypes.add(FilledType.EMPTY);
         showTypes.add(FilledType.PARTIALLY);
         showTypes.add(FilledType.FULLY);
+        showTypes.add(FilledType.OPTIONAL);
     }
 
     public Filter(Set<FilledType> showTypes, boolean showSkipped) {

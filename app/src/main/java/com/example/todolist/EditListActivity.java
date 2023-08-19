@@ -1,12 +1,16 @@
 package com.example.todolist;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.todolist.data.ItemHolder;
 import com.example.todolist.data.ItemListsHolder;
 import com.example.todolist.data.ListNames;
 import com.example.todolist.data.SaveAndLoad;
+
+import java.io.File;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
@@ -37,6 +41,7 @@ public class EditListActivity extends AppCompatActivity {
         }
 
         findViewById(R.id.deleteItem).setVisibility(creatingList ? View.GONE : View.VISIBLE);
+        findViewById(R.id.exportToCsv).setVisibility(creatingList ? View.GONE : View.VISIBLE);
     }
 
     public void applyEdit(View v) {
@@ -63,5 +68,10 @@ public class EditListActivity extends AppCompatActivity {
         SaveAndLoad.saveLists(lists, getApplicationContext());
         SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
         finish();
+    }
+
+    public void exportToCSV(View v) {
+        ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
+        SaveAndLoad.exportListToCSV(holder, list.getListName());
     }
 }

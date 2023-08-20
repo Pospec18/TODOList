@@ -1,21 +1,30 @@
 package com.example.todolist;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.ItemHolder;
-import com.example.todolist.data.ItemListsHolder;
-import com.example.todolist.data.ListNames;
-import com.example.todolist.data.SaveAndLoad;
+import com.example.todolist.data.*;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.List;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
     private ItemListsHolder lists;
     private ListNames list;
+    private ActivityResultLauncher<Intent> onImportCSV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +51,30 @@ public class EditListActivity extends AppCompatActivity {
 
         findViewById(R.id.deleteItem).setVisibility(creatingList ? View.GONE : View.VISIBLE);
         findViewById(R.id.exportToCsv).setVisibility(creatingList ? View.GONE : View.VISIBLE);
+
+        onImportCSV = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data == null)
+                            return;
+                        saveEdit();
+                        ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
+                        SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
+                        SaveAndLoad.saveItems(holder, getApplicationContext());
+                        finish();
+                    }
+                }
+        );
     }
 
     public void applyEdit(View v) {
+        saveEdit();
+        finish();
+    }
+
+    private void saveEdit() {
         EditText editName = findViewById(R.id.editName);
         if (editName.getText().length() == 0)
             return;
@@ -56,7 +86,6 @@ public class EditListActivity extends AppCompatActivity {
         else
             list.setListName(editName.getText().toString());
         SaveAndLoad.saveLists(lists, getApplicationContext());
-        finish();
     }
 
     public void cancelEdit(View v) {
@@ -73,5 +102,13 @@ public class EditListActivity extends AppCompatActivity {
     public void exportToCSV(View v) {
         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
         SaveAndLoad.exportListToCSV(holder, list.getListName());
+    }
+
+    public void importCSV(View v) {
+        ItemHolder holder;
+        Intent intent = new Intent()
+                .setType("*/*")
+                .setAction(Intent.ACTION_GET_CONTENT);;
+        onImportCSV.launch(intent);
     }
 }

@@ -1,7 +1,10 @@
 package com.example.todolist.data;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Environment;
+import com.example.todolist.csv.CSVParser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -63,9 +66,26 @@ public class SaveAndLoad {
         try (Writer writer = new FileWriter(new File(downloads, nameInDownladsFolder + ".csv"))) {
             holder.toCSV(writer);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+    }
+
+    public static void importListFromCSV(ContentResolver resolver, Uri uri, ItemHolder holder)
+    {
+        InputStream is;
+        try {
+             is = resolver.openInputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try (Reader reader = new InputStreamReader(is)) {
+            holder.fromCSV(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.todolist.data;
 
 import android.os.Build;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,8 +21,10 @@ public class Item implements Serializable {
     private boolean optional = false;
 
     @CsvBindByName(column = "createdTime")
+    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime createdTime = null;
     @CsvBindByName(column = "changedTime")
+    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime changedTime = null;
     @CsvBindByName(column = "numberOfChanges")
     private int numberOfChanges;

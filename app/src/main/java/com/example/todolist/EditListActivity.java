@@ -25,6 +25,7 @@ public class EditListActivity extends AppCompatActivity {
     private ItemListsHolder lists;
     private ListNames list;
     private ActivityResultLauncher<Intent> onImportCSV;
+    private ActivityResultLauncher<Intent> onExportCSV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,20 @@ public class EditListActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        onExportCSV = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data == null)
+                            return;
+
+                        ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
+                        SaveAndLoad.exportListToCSV(getContentResolver(), data.getData(), holder);
+                    }
+                }
+        );
     }
 
     public void applyEdit(View v) {
@@ -101,8 +116,12 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void exportToCSV(View v) {
-        ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
-        SaveAndLoad.exportListToCSV(holder, list.getListName());
+        Intent intent = new Intent()
+                .setType("text/csv")
+                .setAction(Intent.ACTION_CREATE_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .putExtra(Intent.EXTRA_TITLE, "todo_list_export.csv");
+        onExportCSV.launch(intent);
     }
 
     public void importCSV(View v) {

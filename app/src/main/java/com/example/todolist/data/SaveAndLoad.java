@@ -60,10 +60,16 @@ public class SaveAndLoad {
         context.deleteFile(fileName);
     }
 
-    public static void exportListToCSV(ItemHolder holder, String nameInDownladsFolder) {
-        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    public static void exportListToCSV(ContentResolver resolver, Uri uri, ItemHolder holder) {
+        OutputStream os;
+        try {
+            os = resolver.openOutputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
 
-        try (Writer writer = new FileWriter(new File(downloads, nameInDownladsFolder + ".csv"))) {
+        try (Writer writer = new OutputStreamWriter(os)) {
             holder.toCSV(writer);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,8 +78,7 @@ public class SaveAndLoad {
         }
     }
 
-    public static void importListFromCSV(ContentResolver resolver, Uri uri, ItemHolder holder)
-    {
+    public static void importListFromCSV(ContentResolver resolver, Uri uri, ItemHolder holder) {
         InputStream is;
         try {
              is = resolver.openInputStream(uri);

@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.data.Item;
@@ -35,8 +36,11 @@ public class EditItemActivity extends AppCompatActivity {
             setTitle("EDIT ITEM");
             EditText editName = findViewById(R.id.editName);
             EditText editCount = findViewById(R.id.editIdealCount);
+            CheckBox optional = findViewById(R.id.optional);
+
             editName.setText(editedItem.getItemName());
             editCount.setText(Integer.toString(editedItem.getIdealCount()));
+            optional.setChecked(editedItem.isOptional());
         }
 
         findViewById(R.id.deleteItem).setVisibility(creatingItem ? View.GONE : View.VISIBLE);
@@ -49,6 +53,8 @@ public class EditItemActivity extends AppCompatActivity {
     public void applyEdit(View v) {
         EditText editName = findViewById(R.id.editName);
         EditText editCount = findViewById(R.id.editIdealCount);
+        CheckBox optional = findViewById(R.id.optional);
+
         if (editName.getText().length() == 0) {
             showMessage("Name must be filled");
             return;
@@ -57,6 +63,7 @@ public class EditItemActivity extends AppCompatActivity {
         try {
             editedItem.setItemName(editName.getText().toString());
             editedItem.setIdealCount(Integer.parseInt(editCount.getText().toString()));
+            editedItem.setOptional(optional.isChecked());
         } catch (NumberFormatException nfe) {
             showMessage("Ideal count must be number.");
             return;

@@ -19,7 +19,14 @@ public class CSVParser {
                 .withType(c)
                 .build();
 
-        List<T> result = cb.parse();
+        List<T> result = null;
+        try {
+            result = cb.parse();
+        }
+        catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+
         if (result == null)
             return new ArrayList<>();
         return result;
@@ -34,9 +41,9 @@ public class CSVParser {
 
             sbc.write(data);
         } catch (CsvRequiredFieldEmptyException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } catch (CsvDataTypeMismatchException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }

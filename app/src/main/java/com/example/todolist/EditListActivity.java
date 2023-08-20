@@ -57,9 +57,8 @@ public class EditListActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        if (data == null)
+                        if (data == null || (!saveEdit() && creatingList))
                             return;
-                        saveEdit();
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
                         SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
                         SaveAndLoad.saveItems(holder, getApplicationContext());
@@ -70,22 +69,24 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void applyEdit(View v) {
-        saveEdit();
+        if (!saveEdit())
+            return;
         finish();
     }
 
-    private void saveEdit() {
+    private boolean saveEdit() {
         EditText editName = findViewById(R.id.editName);
         if (editName.getText().length() == 0)
-            return;
+            return false;
 
         if(creatingList) {
-            ListNames newData = new ListNames(editName.getText().toString(), lists.getNextListName());
-            lists.getListsData().add(newData);
+            list = new ListNames(editName.getText().toString(), lists.getNextListName());
+            lists.getListsData().add(list);
         }
         else
             list.setListName(editName.getText().toString());
         SaveAndLoad.saveLists(lists, getApplicationContext());
+        return true;
     }
 
     public void cancelEdit(View v) {
@@ -105,7 +106,6 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void importCSV(View v) {
-        ItemHolder holder;
         Intent intent = new Intent()
                 .setType("*/*")
                 .setAction(Intent.ACTION_GET_CONTENT);;

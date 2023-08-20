@@ -2,6 +2,7 @@ package com.example.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -25,21 +26,23 @@ public class ListView extends LinearLayout {
         a.gravity = Gravity.CENTER;
         setLayoutParams(a);
 
-        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 10);
+        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 100);
         nameLayoutParams.gravity = Gravity.CENTER;
         nameLayoutParams.setMargins(50, 10, 0, 10);
-        LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         countLayoutParams.gravity = Gravity.CENTER;
         countLayoutParams.setMargins(0, 10, 0, 10);
 
         ContextThemeWrapper textThemeWrapper = new ContextThemeWrapper(context, R.style.text);
         TextView nameView = new TextView(textThemeWrapper, null, R.style.text);
         nameView.setText(listData.getListName());
+        nameView.setEllipsize(TextUtils.TruncateAt.END);
+        nameView.setMaxLines(1);
         nameView.setGravity(Gravity.CENTER_VERTICAL);
         nameView.setLayoutParams(nameLayoutParams);
 
         ImageButton editButton = new ImageButton(context);
-        editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_edit_icon));
+        editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_icon_settings));
         editButton.setBackgroundResource(R.drawable.item_background);
         ((GradientDrawable)editButton.getBackground()).setColor(ContextCompat.getColor(context, R.color.white));
         editButton.setColorFilter(ContextCompat.getColor(context, R.color.blue_500), android.graphics.PorterDuff.Mode.MULTIPLY);

@@ -28,7 +28,7 @@ public class SwitchListActivity  extends AppCompatActivity {
     private void setup() {
         lists = SaveAndLoad.loadLists(getApplicationContext());
         setContentView(R.layout.screen_of_lists);
-        setTitle("LISTS TO CHOOSE");
+        setTitle("CLICK ON LIST TO SELECT IT");
         LinearLayout linearLayout = findViewById(R.id.list);
         for (ListNames data : lists.getListsData())
             linearLayout.addView(new ListView(linearLayout.getContext(), data, this));

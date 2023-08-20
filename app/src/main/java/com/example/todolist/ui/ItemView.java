@@ -2,6 +2,7 @@ package com.example.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -35,14 +36,17 @@ public class ItemView extends LinearLayout {
         TextView nameView = new TextView(textThemeWrapper, null, R.style.text);
         nameView.setText(item.getItemName());
         nameView.setGravity(Gravity.CENTER_VERTICAL);
-        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 10);
+        nameView.setEllipsize(TextUtils.TruncateAt.END);
+        nameView.setMaxLines(1);
+        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 100);
         nameLayoutParams.gravity = Gravity.CENTER;
         nameLayoutParams.setMargins(50, 10, 0, 10);
         nameView.setLayoutParams(nameLayoutParams);
 
-        LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         countLayoutParams.gravity = Gravity.CENTER;
-        countLayoutParams.setMargins(0, 10, 0, 10);
+        countLayoutParams.setMargins(10, 10, 10, 10);
+        //countLayoutParams.width = 80;
 
         TextView countView = new TextView(textThemeWrapper, null, R.style.text);
         countView.setGravity(Gravity.CENTER);
@@ -84,7 +88,6 @@ public class ItemView extends LinearLayout {
         changeCount.setOrientation(VERTICAL);
         LayoutParams changeCountLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         changeCountLayoutParams.setMargins(20, 10, 20, 10);
-        countLayoutParams.gravity = Gravity.CENTER;
         changeCount.setLayoutParams(changeCountLayoutParams);
         changeCount.addView(increase);
         changeCount.addView(decrease);

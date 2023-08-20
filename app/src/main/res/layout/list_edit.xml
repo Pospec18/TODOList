@@ -61,13 +61,13 @@
                 android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
                 android:layout_weight="0">
             <Button
-                    android:text="apply"
+                    android:text="save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/addList" android:layout_weight="1"
                     android:onClick="applyEdit"
                     style="@style/bottom_panel_button"/>
             <Button
-                    android:text="cancel"
+                    android:text="back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/cancelEdit" android:layout_weight="1"
                     android:onClick="cancelEdit"

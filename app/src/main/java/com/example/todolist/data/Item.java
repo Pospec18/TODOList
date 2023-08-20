@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class Item implements Serializable {
-    @CsvBindByName(column = "name")
+    @CsvBindByName(column = "name", required = true)
     private String itemName;
-    @CsvBindByName(column = "idealCount")
+    @CsvBindByName(column = "idealCount", required = true)
     private int idealCount;
     @CsvBindByName(column = "currCount")
     private int currCount;

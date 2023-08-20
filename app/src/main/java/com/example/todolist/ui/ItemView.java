@@ -46,7 +46,6 @@ public class ItemView extends LinearLayout {
         LayoutParams countLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         countLayoutParams.gravity = Gravity.CENTER;
         countLayoutParams.setMargins(10, 10, 10, 10);
-        //countLayoutParams.width = 80;
 
         TextView countView = new TextView(textThemeWrapper, null, R.style.text);
         countView.setGravity(Gravity.CENTER);

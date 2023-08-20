@@ -3,6 +3,7 @@ package com.example.todolist.data;
 import android.os.Build;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
+import com.opencsv.bean.CsvIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public class Item implements Serializable {
     private int idealCount;
     @CsvBindByName(column = "currCount")
     private int currCount;
-    @CsvBindByName(column = "hide")
+    @CsvIgnore
     private boolean hide = false;
     @CsvBindByName(column = "optional")
     private boolean optional = false;
@@ -34,7 +35,7 @@ public class Item implements Serializable {
     private static final long serialVersionUID = 1714191732972138209L;
 
     public Item() {
-        itemName = "name";
+        itemName = "edit item for new name";
         idealCount = 1;
         currCount = 0;
         numberOfChanges = 0;

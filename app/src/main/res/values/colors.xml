@@ -5,14 +5,14 @@
     <color name="transparent">#00000000</color>
     <color name="bg_200">#000000</color>
     <color name="bg_500">#FF000053</color>
-    <color name="red_500">#FFC32A4A</color>
-    <color name="red_700">#FF7B2036</color>
-    <color name="green_500">#FF0FAB75</color>
-    <color name="green_700">#FF2A6551</color>
-    <color name="blue_200">#6073F1</color>
-    <color name="blue_500">#FF2D3AB2</color>
+    <color name="red_500">#AC0741</color>
+    <color name="red_700">#771F3E</color>
+    <color name="green_500">#039A6A</color>
+    <color name="green_700">#2A6557</color>
+    <color name="blue_200">#405DF1</color>
+    <color name="blue_500">#2734AA</color>
     <color name="blue_700">#FF1C2470</color>
-    <color name="gray_200">#555555</color>
-    <color name="gray_500">#303030</color>
-    <color name="gray_700">#252525</color>
+    <color name="gray_200">#323232</color>
+    <color name="gray_500">#222222</color>
+    <color name="gray_700">#0E0E0E</color>
 </resources>

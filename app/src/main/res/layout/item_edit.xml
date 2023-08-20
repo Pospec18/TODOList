@@ -31,7 +31,7 @@
                 android:inputType="text" style="@style/input_field" android:hint="name of the item"
                 android:autofillHints=""/>
         <TextView
-                android:text="ideal count:"
+                android:text="goal count:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/idealCountText" style="@style/text"
                 android:textAllCaps="true" android:paddingLeft="10dp"
@@ -42,15 +42,15 @@
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editIdealCount" android:minHeight="48dp" style="@style/input_field"
-                android:hint="ideal number of this items" android:autofillHints=""/>
+                android:hint="goal count for the item" android:autofillHints=""/>
         <CheckBox
-                android:text="optional"
+                android:text="optional to have"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/optional"
                 android:textAllCaps="true" android:paddingLeft="10dp" style="@style/text"
                 android:paddingRight="10dp" android:gravity="start" android:checked="false"
-                android:buttonTint="@color/blue_500"/>
+                android:buttonTint="@color/blue_200"/>
         <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"

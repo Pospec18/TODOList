@@ -32,6 +32,7 @@
                     app:srcCompat="@drawable/ic_add_icon"
                     android:id="@+id/add" style="@style/bottom_panel_icon_button"
                     android:onClick="add" android:contentDescription="add"/>
+            <!--
             <ImageButton
                     app:srcCompat="@drawable/ic_done_icon"
                     android:id="@+id/done" style="@style/bottom_panel_icon_button"
@@ -48,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" android:contentDescription="settings"
                     android:layout_width="wrap_content"/>
+                    -->
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,22 +3,18 @@ package com.example.todolist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import com.example.todolist.data.*;
+import com.example.todolist.ui.ErrorDialogFragment;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.Reader;
-import java.util.List;
+import java.io.IOException;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
@@ -61,7 +57,22 @@ public class EditListActivity extends AppCompatActivity {
                         if (data == null || (!saveEdit() && creatingList))
                             return;
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
-                        SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
+                        try {
+                            SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            showError("Problem in reading from file while importing.");
+                            return;
+                        } catch (IllegalStateException e) {
+                            e.printStackTrace();
+                            showError("Invalid structure of data to import.");
+                            return;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showError("Unidentified error occurred while importing.");
+                            return;
+                        }
+
                         SaveAndLoad.saveItems(holder, getApplicationContext());
                         finish();
                     }
@@ -77,10 +88,32 @@ public class EditListActivity extends AppCompatActivity {
                             return;
 
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
-                        SaveAndLoad.exportListToCSV(getContentResolver(), data.getData(), holder);
+                        try {
+                            SaveAndLoad.exportListToCSV(getContentResolver(), data.getData(), holder);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            showError("Problem in writing to file while exporting.");
+                        } catch (CsvRequiredFieldEmptyException e) {
+                            e.printStackTrace();
+                            showError("Required field of exporting data is missing.");
+                        } catch (CsvDataTypeMismatchException e) {
+                            e.printStackTrace();
+                            showError("Invalid structure of data to export.");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showError("Unidentified error occurred while exporting.");
+                        }
                     }
                 }
         );
+    }
+
+    private void showError(String message) {
+        DialogFragment dialogFragment = new ErrorDialogFragment();
+        Bundle b = new Bundle();
+        b.putString(ErrorDialogFragment.messageId, message);
+        dialogFragment.setArguments(b);
+        dialogFragment.show(getSupportFragmentManager(), "import");
     }
 
     public void applyEdit(View v) {

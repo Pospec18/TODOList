@@ -4,6 +4,9 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import com.example.todolist.csv.CSVParser;
 import com.example.todolist.csv.CSVSerializable;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
@@ -56,12 +59,12 @@ public class ItemHolder implements Serializable, CSVSerializable {
     }
 
     @Override
-    public void toCSV(Writer writer) {
+    public void toCSV(Writer writer) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         CSVParser.writeCSV(writer, items);
     }
 
     @Override
-    public void fromCSV(Reader reader) {
+    public void fromCSV(Reader reader) throws IllegalStateException {
          items = CSVParser.readCSV(reader, Item.class);
     }
 }

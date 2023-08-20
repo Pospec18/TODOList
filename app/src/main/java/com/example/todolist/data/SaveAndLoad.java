@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import com.example.todolist.csv.CSVParser;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -60,37 +62,17 @@ public class SaveAndLoad {
         context.deleteFile(fileName);
     }
 
-    public static void exportListToCSV(ContentResolver resolver, Uri uri, ItemHolder holder) {
-        OutputStream os;
-        try {
-            os = resolver.openOutputStream(uri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-
+    public static void exportListToCSV(ContentResolver resolver, Uri uri, ItemHolder holder) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
+        OutputStream os = resolver.openOutputStream(uri);
         try (Writer writer = new OutputStreamWriter(os)) {
             holder.toCSV(writer);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    public static void importListFromCSV(ContentResolver resolver, Uri uri, ItemHolder holder) {
-        InputStream is;
-        try {
-             is = resolver.openInputStream(uri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-
+    public static void importListFromCSV(ContentResolver resolver, Uri uri, ItemHolder holder) throws IOException, IllegalStateException {
+        InputStream is = resolver.openInputStream(uri);
         try (Reader reader = new InputStreamReader(is)) {
             holder.fromCSV(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

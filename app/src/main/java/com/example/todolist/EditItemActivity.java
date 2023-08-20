@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.data.Item;
 import com.example.todolist.data.ItemHolder;
 import com.example.todolist.data.SaveAndLoad;
+import com.example.todolist.ui.InfoDialogFragment;
 
 public class EditItemActivity extends AppCompatActivity {
     private boolean creatingItem;
@@ -41,16 +42,23 @@ public class EditItemActivity extends AppCompatActivity {
         findViewById(R.id.deleteItem).setVisibility(creatingItem ? View.GONE : View.VISIBLE);
     }
 
+    private void showMessage(String message) {
+        InfoDialogFragment.showMessage(message, getSupportFragmentManager());
+    }
+
     public void applyEdit(View v) {
         EditText editName = findViewById(R.id.editName);
         EditText editCount = findViewById(R.id.editIdealCount);
-        if (editName.getText().length() == 0)
+        if (editName.getText().length() == 0) {
+            showMessage("Name must be filled");
             return;
+        }
 
         try {
             editedItem.setItemName(editName.getText().toString());
             editedItem.setIdealCount(Integer.parseInt(editCount.getText().toString()));
         } catch (NumberFormatException nfe) {
+            showMessage("Ideal count must be number.");
             return;
         }
 

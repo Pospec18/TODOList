@@ -6,9 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import org.jetbrains.annotations.NotNull;
 
-public class ErrorDialogFragment extends DialogFragment {
+public class InfoDialogFragment extends DialogFragment {
     public static final String messageId = "message";
 
     @NonNull
@@ -23,5 +24,13 @@ public class ErrorDialogFragment extends DialogFragment {
                 .setMessage(arguments.getString(messageId))
                 .setNeutralButton("ok", (dialog, which) -> {});
         return builder.create();
+    }
+
+    public static void showMessage(String message, FragmentManager manager) {
+        DialogFragment dialogFragment = new InfoDialogFragment();
+        Bundle b = new Bundle();
+        b.putString(InfoDialogFragment.messageId, message);
+        dialogFragment.setArguments(b);
+        dialogFragment.show(manager, "info");
     }
 }

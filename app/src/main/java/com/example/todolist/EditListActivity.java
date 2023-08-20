@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import com.example.todolist.data.*;
-import com.example.todolist.ui.ErrorDialogFragment;
+import com.example.todolist.ui.InfoDialogFragment;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
@@ -59,22 +59,24 @@ public class EditListActivity extends AppCompatActivity {
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
                         try {
                             SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
+                            showMessage("Import successful.");
                         } catch (IOException e) {
                             e.printStackTrace();
-                            showError("Problem in reading from file while importing.");
+                            showMessage("Problem in reading from file while importing.");
                             return;
                         } catch (IllegalStateException e) {
                             e.printStackTrace();
-                            showError("Invalid structure of data to import.");
+                            showMessage("Invalid structure of data to import.");
                             return;
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showError("Unidentified error occurred while importing.");
+                            showMessage("Unidentified error occurred while importing.");
                             return;
                         }
 
                         SaveAndLoad.saveItems(holder, getApplicationContext());
-                        finish();
+                        if (creatingList)
+                            finish();
                     }
                 }
         );
@@ -90,30 +92,27 @@ public class EditListActivity extends AppCompatActivity {
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
                         try {
                             SaveAndLoad.exportListToCSV(getContentResolver(), data.getData(), holder);
+                            showMessage("Export successful.");
                         } catch (IOException e) {
                             e.printStackTrace();
-                            showError("Problem in writing to file while exporting.");
+                            showMessage("Problem in writing to file while exporting.");
                         } catch (CsvRequiredFieldEmptyException e) {
                             e.printStackTrace();
-                            showError("Required field of exporting data is missing.");
+                            showMessage("Required field of exporting data is missing.");
                         } catch (CsvDataTypeMismatchException e) {
                             e.printStackTrace();
-                            showError("Invalid structure of data to export.");
+                            showMessage("Invalid structure of data to export.");
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showError("Unidentified error occurred while exporting.");
+                            showMessage("Unidentified error occurred while exporting.");
                         }
                     }
                 }
         );
     }
 
-    private void showError(String message) {
-        DialogFragment dialogFragment = new ErrorDialogFragment();
-        Bundle b = new Bundle();
-        b.putString(ErrorDialogFragment.messageId, message);
-        dialogFragment.setArguments(b);
-        dialogFragment.show(getSupportFragmentManager(), "import");
+    private void showMessage(String message) {
+        InfoDialogFragment.showMessage(message, getSupportFragmentManager());
     }
 
     public void applyEdit(View v) {
@@ -124,8 +123,10 @@ public class EditListActivity extends AppCompatActivity {
 
     private boolean saveEdit() {
         EditText editName = findViewById(R.id.editName);
-        if (editName.getText().length() == 0)
+        if (editName.getText().length() == 0) {
+            showMessage("Name must be filled");
             return false;
+        }
 
         if(creatingList) {
             list = new ListNames(editName.getText().toString(), lists.getNextListName());
@@ -158,6 +159,12 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void importCSV(View v) {
+        EditText editName = findViewById(R.id.editName);
+        if (editName.getText().length() == 0) {
+            showMessage("Name must be filled");
+            return;
+        }
+
         Intent intent = new Intent()
                 .setType("*/*")
                 .setAction(Intent.ACTION_GET_CONTENT);;

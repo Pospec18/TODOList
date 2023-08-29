@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.data.*;
+import com.example.todolist.ui.InfoDialogFragment;
 import com.example.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 
     private ItemHolder itemHolder; // TODO: allow multiple lists
+    private ItemView selected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +82,18 @@ public class MainActivity extends AppCompatActivity {
     public void changeList(View v) {
         Intent intent = new Intent(this, SwitchListActivity.class);
         startActivity(intent);
+    }
+
+    public void selectItem(ItemView item) {
+        if (selected != null)
+            selected.deselect();
+
+        if (item != null)
+            item.select();
+        selected = item;
+    }
+
+    public void showMessage(String message) {
+        InfoDialogFragment.showMessage(message, getSupportFragmentManager());
     }
 }

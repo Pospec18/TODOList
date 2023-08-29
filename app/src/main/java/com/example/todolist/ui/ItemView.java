@@ -2,14 +2,14 @@ package com.example.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.inputmethod.EditorInfo;
+import android.widget.*;
 import androidx.core.content.ContextCompat;
 import com.example.todolist.MainActivity;
 import com.example.todolist.R;
@@ -17,8 +17,9 @@ import com.example.todolist.data.Item;
 
 public class ItemView extends LinearLayout {
     private final Item item;
-    private final TextView currentCountView;
+    private final EditText currentCountView;
     private final ImageButton editButton;
+    private final LinearLayout changeCount;
 
     public ItemView(Context context, Item item, MainActivity main) {
         super(context);
@@ -52,10 +53,22 @@ public class ItemView extends LinearLayout {
         countView.setText(Integer.toString(item.getIdealCount()));
         countView.setLayoutParams(countLayoutParams);
 
-        currentCountView = new TextView(textThemeWrapper, null, R.style.text);
+        currentCountView = new EditText(textThemeWrapper, null, R.style.text);
         currentCountView.setLayoutParams(countLayoutParams);
         currentCountView.setBackgroundResource(R.drawable.item_background);
         currentCountView.setGravity(Gravity.CENTER);
+        currentCountView.setInputType(InputType.TYPE_CLASS_NUMBER);
+        currentCountView.setOnEditorActionListener((view, actionId, keyEvent) -> {
+            if (actionId != EditorInfo.IME_ACTION_DONE)
+                return false;
+            try {
+                item.setCurrCount(Integer.parseInt(currentCountView.getText().toString()));
+            } catch (NumberFormatException nfe) {
+                main.showMessage("Ideal count must be number.");
+                return false;
+            }
+            return true;
+        });
 
         Button increase = new Button(changeCountThemeWrapper, null, R.style.changeCount);
         increase.setText("+");
@@ -83,8 +96,8 @@ public class ItemView extends LinearLayout {
         editButton.setLayoutParams(countLayoutParams);
         editButton.setOnClickListener(v -> main.editItem(item));
 
-        LinearLayout changeCount = new LinearLayout(context);
-        changeCount.setOrientation(VERTICAL);
+        changeCount = new LinearLayout(context);
+        changeCount.setOrientation(HORIZONTAL);
         LayoutParams changeCountLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         changeCountLayoutParams.setMargins(20, 10, 20, 10);
         changeCount.setLayoutParams(changeCountLayoutParams);
@@ -97,6 +110,15 @@ public class ItemView extends LinearLayout {
         addView(changeCount);
         addView(editButton);
         updateColors();
+
+        setOnClickListener(v -> {
+            if (isSelectedItem())
+                main.selectItem(null);
+            else
+                main.selectItem(this);
+        });
+        deselect();
+        setMinimumHeight(160);
     }
 
     private void updateColors() {
@@ -105,5 +127,19 @@ public class ItemView extends LinearLayout {
         currentCountView.setText(Integer.toString(item.getCurrCount()));
         ((GradientDrawable)currentCountView.getBackground()).setColor(FilledTypeToColor.secondary(item.getFilledType(), context));
         editButton.setColorFilter(FilledTypeToColor.primary(item.getFilledType(), context), android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
+
+    public void deselect() {
+        editButton.setVisibility(View.GONE);
+        changeCount.setVisibility(View.GONE);
+    }
+
+    public void select() {
+        editButton.setVisibility(View.VISIBLE);
+        changeCount.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isSelectedItem() {
+        return editButton.getVisibility() == View.VISIBLE;
     }
 }

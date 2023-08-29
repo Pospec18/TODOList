@@ -35,14 +35,14 @@
                 android:background="@color/transparent"
                 android:layout_weight="10"/>
         <Button
-                android:text="export to CSV"
+                android:text="export to file"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/exportToCsv"
                 android:onClick="exportToCSV"
                 android:focusable="false"
                 style="@style/bottom_panel_button" android:backgroundTint="@color/blue_500" android:layout_weight="0"/>
         <Button
-                android:text="import from CSV"
+                android:text="import from file"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/importFromCSV"
                 android:onClick="importCSV"

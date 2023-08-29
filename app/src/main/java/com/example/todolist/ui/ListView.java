@@ -53,5 +53,6 @@ public class ListView extends LinearLayout {
 
         addView(nameView);
         addView(editButton);
+        setMinimumHeight(160);
     }
 }

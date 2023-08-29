@@ -154,7 +154,7 @@ public class EditListActivity extends AppCompatActivity {
                 .setType("text/csv")
                 .setAction(Intent.ACTION_CREATE_DOCUMENT)
                 .addCategory(Intent.CATEGORY_OPENABLE)
-                .putExtra(Intent.EXTRA_TITLE, "todo_list_export.csv");
+                .putExtra(Intent.EXTRA_TITLE, "todo_list_export");
         onExportCSV.launch(intent);
     }
 

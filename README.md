@@ -2,6 +2,10 @@
 
 Android app for creating and organizing multiple todo lists.
 
+<img src="./promotional/Screenshot_Mobile_1.png" alt="List with items" width="200"/>
+<img src="./promotional/Screenshot_Mobile_2.png" alt="Editing item" width="200"/>
+<img src="./promotional/Screenshot_Mobile_3.png" alt="Editing list" width="200"/>
+
 Every item on a list has name, ideal/goal count and current count. Name is just a name you give the item. When your current count is same or higher than your ideal/goal count for the item then the item is showed as completed. You can use it for example as item in shopping list, score in a game, things to pack up or any other way you like.
 
 ## Features

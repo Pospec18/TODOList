@@ -8,7 +8,6 @@ import android.widget.EditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import com.example.todolist.data.*;
 import com.example.todolist.ui.InfoDialogFragment;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -68,7 +67,7 @@ public class EditListActivity extends AppCompatActivity {
                             e.printStackTrace();
                             showMessage("Invalid structure of data to import.");
                             return;
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             e.printStackTrace();
                             showMessage("Unidentified error occurred while importing.");
                             return;
@@ -102,7 +101,7 @@ public class EditListActivity extends AppCompatActivity {
                         } catch (CsvDataTypeMismatchException e) {
                             e.printStackTrace();
                             showMessage("Invalid structure of data to export.");
-                        } catch (Exception e) {
+                        } catch (Throwable e) {
                             e.printStackTrace();
                             showMessage("Unidentified error occurred while exporting.");
                         }

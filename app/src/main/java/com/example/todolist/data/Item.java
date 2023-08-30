@@ -8,6 +8,7 @@ import com.opencsv.bean.CsvIgnore;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class Item implements Serializable {
     @CsvBindByName(column = "name", required = true)
@@ -22,11 +23,11 @@ public class Item implements Serializable {
     private boolean optional = false;
 
     @CsvBindByName(column = "createdTime")
-    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private LocalDateTime createdTime = null;
+    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    private ZonedDateTime createdTime = null;
     @CsvBindByName(column = "changedTime")
-    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private LocalDateTime changedTime = null;
+    @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    private ZonedDateTime changedTime = null;
     @CsvBindByName(column = "numberOfChanges")
     private int numberOfChanges;
     @CsvBindByName(column = "type")
@@ -41,8 +42,8 @@ public class Item implements Serializable {
         numberOfChanges = 0;
         type = ItemType.Number;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createdTime = LocalDateTime.now(ZoneId.of("Etc/UTC"));
-            changedTime = LocalDateTime.now(ZoneId.of("Etc/UTC"));
+            createdTime = ZonedDateTime.now();
+            changedTime = ZonedDateTime.now();
         }
     }
 
@@ -66,11 +67,11 @@ public class Item implements Serializable {
         return optional;
     }
 
-    public LocalDateTime getCreatedTime() {
+    public ZonedDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public LocalDateTime getChangedTime() {
+    public ZonedDateTime getChangedTime() {
         return changedTime;
     }
 
@@ -106,8 +107,7 @@ public class Item implements Serializable {
         onChanged();
     }
 
-    public void changeCurrCountBy(int offset)
-    {
+    public void changeCurrCountBy(int offset) {
         this.currCount += offset;
         onChanged();
     }
@@ -138,7 +138,7 @@ public class Item implements Serializable {
     {
         numberOfChanges++;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            changedTime = LocalDateTime.now();
+            changedTime = ZonedDateTime.now();
         }
     }
 }

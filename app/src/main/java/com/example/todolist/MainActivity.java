@@ -19,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setup();
+
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+            e.printStackTrace();
+            showMessage("Unexpected error occurred");
+        });
     }
 
     @Override

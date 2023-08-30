@@ -24,7 +24,7 @@ public class Filter {
     public boolean canShow(Item item) {
         if (item.isHide() && !showSkipped)
             return false;
-        return  showTypes.contains(item.getFilledType());
+        return showTypes.contains(item.getFilledType());
     }
 
     public void addShowedType(FilledType type) {

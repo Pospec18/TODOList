@@ -1,7 +1,6 @@
 package com.example.todolist;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,7 +11,7 @@ import com.example.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ItemHolder itemHolder; // TODO: allow multiple lists
+    private ItemHolder itemHolder;
     private ItemView selected = null;
 
     @Override
@@ -74,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.list);
         if (itemHolder == null || linearLayout == null)
             return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            for (Item item : itemHolder.filterNoItems())
-                linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));
-        }
+
+        for (Item item : itemHolder.filterNoItems())
+            linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));
     }
 
     public void saveItems() {

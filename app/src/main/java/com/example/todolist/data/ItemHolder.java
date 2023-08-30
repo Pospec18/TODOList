@@ -25,9 +25,12 @@ public class ItemHolder implements Serializable, CSVSerializable {
         this.fileName = fileName;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Item> filterNoItems() {
-        return filterItems(item -> true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return filterItems(item -> true);
+        } else {
+            return items;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

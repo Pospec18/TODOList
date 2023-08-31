@@ -1,4 +1,4 @@
-package com.example.todolist.ui;
+package com.pospecstudio.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import androidx.core.content.ContextCompat;
-import com.example.todolist.MainActivity;
+import com.pospecstudio.todolist.MainActivity;
 import com.example.todolist.R;
-import com.example.todolist.data.Item;
+import com.pospecstudio.todolist.data.Item;
 
 public class ItemView extends LinearLayout {
     private final Item item;

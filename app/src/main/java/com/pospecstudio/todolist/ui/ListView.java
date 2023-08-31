@@ -1,4 +1,4 @@
-package com.example.todolist.ui;
+package com.pospecstudio.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.example.todolist.R;
-import com.example.todolist.SwitchListActivity;
-import com.example.todolist.data.ListNames;
+import com.pospecstudio.todolist.SwitchListActivity;
+import com.pospecstudio.todolist.data.ListNames;
 
 public class ListView extends LinearLayout {
 

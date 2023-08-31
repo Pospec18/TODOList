@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.pospecstudio.todolist;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

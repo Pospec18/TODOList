@@ -1,4 +1,4 @@
-package com.example.todolist.data;
+package com.pospecstudio.todolist.data;
 
 import java.io.Serializable;
 

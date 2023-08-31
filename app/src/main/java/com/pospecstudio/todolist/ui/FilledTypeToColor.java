@@ -1,9 +1,9 @@
-package com.example.todolist.ui;
+package com.pospecstudio.todolist.ui;
 
 import android.content.Context;
 import androidx.core.content.ContextCompat;
 import com.example.todolist.R;
-import com.example.todolist.data.FilledType;
+import com.pospecstudio.todolist.data.FilledType;
 
 public class FilledTypeToColor {
     public static int primary(FilledType type, Context context) {

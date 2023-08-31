@@ -1,4 +1,4 @@
-package com.example.todolist.ui;
+package com.pospecstudio.todolist.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

@@ -1,13 +1,14 @@
-package com.example.todolist;
+package com.pospecstudio.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.*;
-import com.example.todolist.ui.InfoDialogFragment;
-import com.example.todolist.ui.ItemView;
+import com.example.todolist.R;
+import com.pospecstudio.todolist.data.*;
+import com.pospecstudio.todolist.ui.InfoDialogFragment;
+import com.pospecstudio.todolist.ui.ItemView;
 
 public class MainActivity extends AppCompatActivity {
 

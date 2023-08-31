@@ -1,4 +1,4 @@
-package com.example.todolist.csv;
+package com.pospecstudio.todolist.csv;
 
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;

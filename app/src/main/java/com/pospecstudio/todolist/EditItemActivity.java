@@ -1,14 +1,15 @@
-package com.example.todolist;
+package com.pospecstudio.todolist;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.Item;
-import com.example.todolist.data.ItemHolder;
-import com.example.todolist.data.SaveAndLoad;
-import com.example.todolist.ui.InfoDialogFragment;
+import com.example.todolist.R;
+import com.pospecstudio.todolist.data.Item;
+import com.pospecstudio.todolist.data.ItemHolder;
+import com.pospecstudio.todolist.data.SaveAndLoad;
+import com.pospecstudio.todolist.ui.InfoDialogFragment;
 
 public class EditItemActivity extends AppCompatActivity {
     private boolean creatingItem;

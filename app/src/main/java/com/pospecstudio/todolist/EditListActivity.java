@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.pospecstudio.todolist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,10 +8,14 @@ import android.widget.EditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.*;
-import com.example.todolist.ui.InfoDialogFragment;
+import com.example.todolist.R;
+import com.pospecstudio.todolist.data.ItemHolder;
+import com.pospecstudio.todolist.data.ItemListsHolder;
+import com.pospecstudio.todolist.data.SaveAndLoad;
+import com.pospecstudio.todolist.ui.InfoDialogFragment;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.pospecstudio.todolist.data.ListNames;
 
 import java.io.IOException;
 

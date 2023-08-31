@@ -1,10 +1,8 @@
-package com.example.todolist.data;
+package com.pospecstudio.todolist.data;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Environment;
-import com.example.todolist.csv.CSVParser;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 

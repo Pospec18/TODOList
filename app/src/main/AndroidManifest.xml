@@ -14,7 +14,7 @@
             android:theme="@style/Theme.TODOList"
             tools:targetApi="31">
         <activity
-                android:name=".MainActivity"
+                android:name="com.pospecstudio.todolist.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".EditItemActivity" android:exported="true"/>
-        <activity android:name=".EditListActivity" android:exported="true"/>
-        <activity android:name=".SwitchListActivity" android:exported="true"/>
+        <activity android:name="com.pospecstudio.todolist.EditItemActivity" android:exported="true"/>
+        <activity android:name="com.pospecstudio.todolist.EditListActivity" android:exported="true"/>
+        <activity android:name="com.pospecstudio.todolist.SwitchListActivity" android:exported="true"/>
     </application>
-
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
 </manifest>

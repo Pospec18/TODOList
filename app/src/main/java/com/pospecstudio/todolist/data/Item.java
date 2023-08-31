@@ -1,4 +1,4 @@
-package com.example.todolist.data;
+package com.pospecstudio.todolist.data;
 
 import android.os.Build;
 import com.opencsv.bean.CsvBindByName;
@@ -6,8 +6,6 @@ import com.opencsv.bean.CsvDate;
 import com.opencsv.bean.CsvIgnore;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class Item implements Serializable {

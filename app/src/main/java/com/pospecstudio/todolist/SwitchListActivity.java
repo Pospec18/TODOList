@@ -1,14 +1,15 @@
-package com.example.todolist;
+package com.pospecstudio.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.todolist.data.ItemListsHolder;
-import com.example.todolist.data.ListNames;
-import com.example.todolist.data.SaveAndLoad;
-import com.example.todolist.ui.ListView;
+import com.example.todolist.R;
+import com.pospecstudio.todolist.data.ItemListsHolder;
+import com.pospecstudio.todolist.data.ListNames;
+import com.pospecstudio.todolist.data.SaveAndLoad;
+import com.pospecstudio.todolist.ui.ListView;
 
 public class SwitchListActivity  extends AppCompatActivity {
 

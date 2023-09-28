@@ -1,10 +1,11 @@
 package com.pospecstudio.todolist.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Filter {
+public class Filter implements Serializable {
     private final Set<FilledType> showTypes;
     private boolean showSkipped = false;
 
@@ -24,7 +25,11 @@ public class Filter {
     public boolean canShow(Item item) {
         if (item.isHide() && !showSkipped)
             return false;
-        return showTypes.contains(item.getFilledType());
+        return canShow(item.getFilledType());
+    }
+
+    public boolean canShow(FilledType type) {
+        return showTypes.contains(type);
     }
 
     public void addShowedType(FilledType type) {
@@ -33,10 +38,6 @@ public class Filter {
 
     public void removeShowedType(FilledType type) {
         showTypes.remove(type);
-    }
-
-    public Iterator<FilledType> getShowedTypes() {
-        return showTypes.iterator();
     }
 
     public boolean isShowSkipped() {

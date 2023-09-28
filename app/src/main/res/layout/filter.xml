@@ -65,12 +65,12 @@
                     android:text="apply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/addList" android:layout_weight="1"
-                    style="@style/bottom_panel_button"/>
+                    style="@style/bottom_panel_button" android:onClick="apply"/>
             <Button
                     android:text="cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/cancelEdit" android:layout_weight="1"
-                    style="@style/bottom_panel_button"/>
+                    style="@style/bottom_panel_button" android:onClick="cancel"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

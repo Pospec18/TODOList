@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class ItemHolder implements Serializable, CSVSerializable {
     private List<Item> items;
     private final String fileName;
-    public static final Filter filter = new Filter();
+    private static final Filter filter = new Filter();
     private static final long serialVersionUID = 5480838046586935873L;
 
     public ItemHolder(List<Item> items, String fileName) {
@@ -59,6 +59,10 @@ public class ItemHolder implements Serializable, CSVSerializable {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public static Filter getFilter() {
+        return filter;
     }
 
     @Override

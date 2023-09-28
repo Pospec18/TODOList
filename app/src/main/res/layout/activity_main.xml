@@ -38,11 +38,14 @@
                     android:id="@+id/done" style="@style/bottom_panel_icon_button"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" android:contentDescription="done"/>
+                    -->
             <ImageButton
                     app:srcCompat="@drawable/ic_filter_icon"
                     android:id="@+id/filter" style="@style/bottom_panel_icon_button"
                     android:layout_height="wrap_content"
+                    android:onClick="filter"
                     android:layout_weight="1" android:contentDescription="filter" android:layout_width="wrap_content"/>
+            <!--
             <ImageButton
                     app:srcCompat="@drawable/ic_icon_settings"
                     android:id="@+id/settings" style="@style/bottom_panel_icon_button"

@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void filter(View v) {
-
+        Intent intent = new Intent(this, FilterActivity.class);
+        Bundle bundle = new Bundle();
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void editItem(Item item) {

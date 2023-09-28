@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context="com.pospecstudio.todolist.FilterActivity"
+                                                   android:background="@color/bg_200">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/transparent"
+        />
+        <TextView
+                android:text="Show:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/nameText" style="@style/text"
+                android:gravity="start" android:fontFamily="monospace" android:textAllCaps="true"
+                android:paddingLeft="10dp" android:paddingRight="10dp"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/fully"
+                    style="@style/filterChip"
+                    app:chipSurfaceColor="@color/green_500"
+            />
+            <com.google.android.material.chip.Chip
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/partially"
+                    style="@style/filterChip"
+                    app:chipSurfaceColor="@color/blue_500"
+            />
+            <com.google.android.material.chip.Chip
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/empty"
+                    style="@style/filterChip"
+                    app:chipSurfaceColor="@color/red_500"
+            />
+            <com.google.android.material.chip.Chip
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/optional"
+                    style="@style/filterChip"
+                    app:chipSurfaceColor="@color/gray_500"
+            />
+        </LinearLayout>
+        <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_weight="10"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
+                android:layout_weight="0">
+            <Button
+                    android:text="apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/addList" android:layout_weight="1"
+                    style="@style/bottom_panel_button"/>
+            <Button
+                    android:text="cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/cancelEdit" android:layout_weight="1"
+                    style="@style/bottom_panel_button"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,8 +76,14 @@ public class MainActivity extends AppCompatActivity {
         if (itemHolder == null || linearLayout == null)
             return;
 
-        for (Item item : itemHolder.getFilteredItems())
-            linearLayout.addView(new ItemView(linearLayout.getContext(), item, this));
+        for (Item item : itemHolder.getFilteredItems()) {
+            ItemView v = new ItemView(linearLayout.getContext(), item, this);
+            linearLayout.addView(v);
+            if (itemHolder.isEditedItem(item))
+                linearLayout.requestChildFocus(v, v);
+        }
+
+
 
         itemHolder.forgetIndexOfEditedItem();
         SaveAndLoad.saveItems(itemHolder, getApplicationContext());

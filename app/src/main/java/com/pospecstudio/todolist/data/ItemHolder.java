@@ -43,7 +43,7 @@ public class ItemHolder implements Serializable, CSVSerializable {
     }
 
     private boolean canShowItem(Item item) {
-        if (indexOf(item) == editedItemIdx)
+        if (isEditedItem(item))
             return true;
         return filter.canShow(item);
     }
@@ -76,6 +76,10 @@ public class ItemHolder implements Serializable, CSVSerializable {
 
     public void forgetIndexOfEditedItem() {
         editedItemIdx = -1;
+    }
+
+    public boolean isEditedItem(Item item) {
+        return indexOf(item) == editedItemIdx;
     }
 
     @Override

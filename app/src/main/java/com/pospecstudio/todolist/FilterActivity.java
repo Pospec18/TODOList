@@ -9,7 +9,6 @@ import com.google.android.material.chip.Chip;
 import com.pospecstudio.todolist.data.FilledType;
 import com.pospecstudio.todolist.data.Filter;
 import com.pospecstudio.todolist.data.ItemHolder;
-import com.pospecstudio.todolist.data.SaveAndLoad;
 
 public class FilterActivity extends AppCompatActivity {
     private ItemHolder itemHolder = null;

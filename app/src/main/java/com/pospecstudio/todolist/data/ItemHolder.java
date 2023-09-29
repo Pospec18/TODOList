@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ItemHolder implements Serializable, CSVSerializable {
     private List<Item> items;
     private final String fileName;
+    private int editedItemIdx = -1;
     private static final Filter filter = new Filter();
     private static final long serialVersionUID = 5480838046586935873L;
 
@@ -25,7 +26,7 @@ public class ItemHolder implements Serializable, CSVSerializable {
         this.fileName = fileName;
     }
 
-    public List<Item> filterNoItems() {
+    public List<Item> getFilteredItems() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return filterItems(item -> true);
         } else {
@@ -36,12 +37,19 @@ public class ItemHolder implements Serializable, CSVSerializable {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Item> filterItems(Predicate<? super Item> predicate) {
         return items.stream()
-                .filter(filter::canShow)
+                .filter(this::canShowItem)
                 .filter(predicate)
                 .collect(Collectors.toList());
     }
 
+    private boolean canShowItem(Item item) {
+        if (indexOf(item) == editedItemIdx)
+            return true;
+        return filter.canShow(item);
+    }
+
     public void addItem(Item item) {
+        editedItemIdx = items.size();
         items.add(item);
     }
 
@@ -53,7 +61,8 @@ public class ItemHolder implements Serializable, CSVSerializable {
         return items.indexOf(item);
     }
 
-    public Item getItem(int index) {
+    public Item getItemToEdit(int index) {
+        editedItemIdx = index;
         return items.get(index);
     }
 
@@ -63,6 +72,10 @@ public class ItemHolder implements Serializable, CSVSerializable {
 
     public static Filter getFilter() {
         return filter;
+    }
+
+    public void forgetIndexOfEditedItem() {
+        editedItemIdx = -1;
     }
 
     @Override

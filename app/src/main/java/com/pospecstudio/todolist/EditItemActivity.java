@@ -27,7 +27,7 @@ public class EditItemActivity extends AppCompatActivity {
             if (creatingItem)
                 editedItem = new Item();
             else
-                editedItem = itemHolder.getItem(extras.getInt("itemIdx"));
+                editedItem = itemHolder.getItemToEdit(extras.getInt("itemIdx"));
         }
 
         setContentView(R.layout.item_edit);

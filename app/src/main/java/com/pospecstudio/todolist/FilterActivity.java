@@ -6,9 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todolist.R;
 import com.google.android.material.chip.Chip;
-import com.pospecstudio.todolist.data.FilledType;
-import com.pospecstudio.todolist.data.Filter;
-import com.pospecstudio.todolist.data.ItemHolder;
+import com.pospecstudio.todolist.data.*;
 
 public class FilterActivity extends AppCompatActivity {
     private ItemHolder itemHolder = null;
@@ -21,8 +19,17 @@ public class FilterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        filter = ItemHolder.getFilter();
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            itemHolder = (ItemHolder) extras.getSerializable("itemHolder");
+
+        if (itemHolder == null) {
+            finish();
+            return;
+        }
+
+        filter = itemHolder.getFilter();
         setContentView(R.layout.filter);
 
         fully = findViewById(R.id.fully);
@@ -50,6 +57,7 @@ public class FilterActivity extends AppCompatActivity {
         applyFilledType(partially, FilledType.PARTIALLY);
         applyFilledType(empty, FilledType.EMPTY);
         applyFilledType(optional, FilledType.OPTIONAL);
+        SaveAndLoad.saveItems(itemHolder, getApplicationContext());
         finish();
     }
 

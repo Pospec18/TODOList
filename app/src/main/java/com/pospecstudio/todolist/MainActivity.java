@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void filter(View v) {
         Intent intent = new Intent(this, FilterActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("itemHolder", itemHolder);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -82,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
             if (itemHolder.isEditedItem(item))
                 linearLayout.requestChildFocus(v, v);
         }
-
-
 
         itemHolder.forgetIndexOfEditedItem();
         SaveAndLoad.saveItems(itemHolder, getApplicationContext());

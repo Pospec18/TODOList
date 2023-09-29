@@ -7,9 +7,7 @@ import com.pospecstudio.todolist.csv.CSVSerializable;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import java.io.*;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -18,12 +16,19 @@ public class ItemHolder implements Serializable, CSVSerializable {
     private List<Item> items;
     private final String fileName;
     private int editedItemIdx = -1;
-    private static final Filter filter = new Filter();
+    private Filter filter = new Filter();
     private static final long serialVersionUID = 5480838046586935873L;
 
     public ItemHolder(List<Item> items, String fileName) {
         this.items = items;
         this.fileName = fileName;
+    }
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        if (filter == null)
+            filter = new Filter();
     }
 
     public List<Item> getFilteredItems() {
@@ -70,7 +75,7 @@ public class ItemHolder implements Serializable, CSVSerializable {
         return fileName;
     }
 
-    public static Filter getFilter() {
+    public Filter getFilter() {
         return filter;
     }
 

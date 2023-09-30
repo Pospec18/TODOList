@@ -3,12 +3,19 @@ package com.pospecstudio.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.data.*;
 import com.pospecstudio.todolist.ui.InfoDialogFragment;
 import com.pospecstudio.todolist.ui.ItemView;
+import com.pospecstudio.todolist.ui.ItemsAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,15 +82,18 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("LIST: " + listNames.getListName().toUpperCase());
 
-        LinearLayout linearLayout = findViewById(R.id.list);
+        RecyclerView linearLayout = findViewById(android.R.id.list);
         if (itemHolder == null || linearLayout == null)
             return;
 
+        linearLayout.setLayoutManager(new LinearLayoutManager(this));
+        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder));
+
         for (Item item : itemHolder.getFilteredItems()) {
-            ItemView v = new ItemView(linearLayout.getContext(), item, this);
-            linearLayout.addView(v);
-            if (itemHolder.isEditedItem(item))
-                linearLayout.requestChildFocus(v, v);
+            // ItemView v = new ItemView(linearLayout.getContext(), item, this);
+            // linearLayout.addView(v);
+            // if (itemHolder.isEditedItem(item))
+                // linearLayout.requestChildFocus(v, v);
         }
 
         itemHolder.forgetIndexOfEditedItem();

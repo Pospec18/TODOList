@@ -4,6 +4,6 @@
                 android:layout_height="wrap_content">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:text="ITEM" android:textColor="@color/white" android:id="@+id/nameText" />
+              android:text="ITEM" android:id="@+id/nameText" style="@style/text" />
 
 </RelativeLayout>

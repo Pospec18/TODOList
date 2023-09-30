@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.data.*;
 import com.pospecstudio.todolist.ui.InfoDialogFragment;
@@ -16,6 +17,7 @@ import com.pospecstudio.todolist.ui.ItemView;
 import com.pospecstudio.todolist.ui.ItemsAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,17 +85,22 @@ public class MainActivity extends AppCompatActivity {
         setTitle("LIST: " + listNames.getListName().toUpperCase());
 
         RecyclerView linearLayout = findViewById(android.R.id.list);
+        SwipeRefreshLayout swipe = findViewById(R.id.swipe);
         if (itemHolder == null || linearLayout == null)
             return;
 
-        linearLayout.setLayoutManager(new LinearLayoutManager(this));
-        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder));
+        swipe.setOnRefreshListener(() -> {
+            linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems()));
+            swipe.setRefreshing(false);
+        });
 
-        for (Item item : itemHolder.getFilteredItems()) {
-            // ItemView v = new ItemView(linearLayout.getContext(), item, this);
-            // linearLayout.addView(v);
-            // if (itemHolder.isEditedItem(item))
-                // linearLayout.requestChildFocus(v, v);
+        List<Item> items = itemHolder.getFilteredItems();
+        linearLayout.setLayoutManager(new LinearLayoutManager(this));
+        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), items));
+
+        for (int i = 0; i < items.size(); i++) {
+            if (itemHolder.isEditedItem(items.get(i)))
+                linearLayout.scrollToPosition(i);
         }
 
         itemHolder.forgetIndexOfEditedItem();

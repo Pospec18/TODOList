@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class ItemsViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView nameText;
+    private Item item;
 
     public ItemsViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -18,6 +19,11 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Item item) {
+        this.item = item;
         nameText.setText(item.getItemName());
+    }
+
+    public Item getItem() {
+        return item;
     }
 }

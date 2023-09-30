@@ -1,6 +1,9 @@
 package com.pospecstudio.todolist;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.pospecstudio.todolist.data.ListNames;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
@@ -150,6 +154,15 @@ public class EditListActivity extends AppCompatActivity {
         SaveAndLoad.saveLists(lists, getApplicationContext());
         SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
         finish();
+    }
+
+    public void listToClipboard(View v) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        StringBuilder text = new StringBuilder();
+        ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
+        holder.print(text);
+        ClipData clip = ClipData.newPlainText(list.getListName(), text);
+        clipboard.setPrimaryClip(clip);
     }
 
     public void exportToCSV(View v) {

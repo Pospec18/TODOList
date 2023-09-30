@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ItemHolder implements Serializable, CSVSerializable {
+public class ItemHolder implements Serializable, CSVSerializable, Printable {
     private List<Item> items;
     private final String fileName;
     private int editedItemIdx = -1;
@@ -95,5 +95,12 @@ public class ItemHolder implements Serializable, CSVSerializable {
     @Override
     public void fromCSV(Reader reader) throws IllegalStateException {
          items = CSVParser.readCSV(reader, Item.class);
+    }
+
+    public void print(StringBuilder builder) {
+        for (Item i: items) {
+            i.print(builder);
+            builder.append('\n');
+        }
     }
 }

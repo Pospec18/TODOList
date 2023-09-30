@@ -8,7 +8,7 @@ import com.opencsv.bean.CsvIgnore;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-public class Item implements Serializable {
+public class Item implements Serializable, Printable {
     @CsvBindByName(column = "name", required = true)
     private String itemName;
     @CsvBindByName(column = "idealCount", required = true)
@@ -138,5 +138,9 @@ public class Item implements Serializable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             changedTime = ZonedDateTime.now();
         }
+    }
+
+    public void print(StringBuilder builder) {
+        builder.append(itemName).append(" ").append(currCount).append("/").append(idealCount);
     }
 }

@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:background="@drawable/item_background"
+                android:layout_marginVertical="4dp"
+                android:minHeight="54dp" android:gravity="center">
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:text="ITEM" android:id="@+id/nameText" style="@style/text" />
+    <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="100"
+              android:text="item" android:id="@+id/nameText" style="@style/text" android:ellipsize="end" android:maxLines="1"
+              android:layout_marginStart="10dp" android:textAlignment="textStart"/>
+    <TextView style="@style/itemValue"
+              android:text="5" android:id="@+id/idealCountText"/>
 
-</RelativeLayout>
+    <EditText style="@style/itemValue" android:background="@drawable/item_background"
+              android:text="5" android:id="@+id/currCountText" android:inputType="number"
+              tools:ignore="LabelFor" android:autofillHints="1"/>
+
+    <LinearLayout style="@style/itemValue" android:id="@+id/editPanel">
+        <Button android:layout_width="wrap_content" android:layout_height="match_parent"
+                style="@style/changeCount" android:text="+" android:stateListAnimator="@null"/>
+        <Button android:layout_width="wrap_content" android:layout_height="match_parent"
+                style="@style/changeCount" android:text="-" android:stateListAnimator="@null"/>
+
+        <ImageButton android:layout_width="wrap_content" android:layout_height="match_parent"
+                     android:background="@drawable/item_background" android:id="@+id/editButton"
+                     android:contentDescription="edit item" android:minWidth="48dp"/>
+    </LinearLayout>
+
+</LinearLayout>

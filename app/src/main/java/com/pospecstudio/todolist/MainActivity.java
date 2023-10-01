@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.data.*;
-import com.pospecstudio.todolist.ui.InfoDialogFragment;
-import com.pospecstudio.todolist.ui.ItemsAdapter;
+import com.pospecstudio.todolist.ui.*;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,23 +78,29 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("LIST: " + listNames.getListName().toUpperCase());
 
-        RecyclerView linearLayout = findViewById(android.R.id.list);
+        RecyclerView recyclerView = findViewById(android.R.id.list);
         SwipeRefreshLayout swipe = findViewById(R.id.swipe);
-        if (itemHolder == null || linearLayout == null)
+        if (itemHolder == null || recyclerView == null)
             return;
 
+        List<Item> items = itemHolder.getFilteredItems();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ItemsAdapter adapter = new ItemsAdapter(getApplicationContext(), items, this);
+        recyclerView.setAdapter(adapter);
+        RecycleRowMoveCallback<ItemsViewHolder> callback = new RecycleRowMoveCallback<>(adapter, ItemsViewHolder.class);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
         swipe.setOnRefreshListener(() -> {
-            linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems(), this));
+            ItemsAdapter newAdapter = new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems(), this);
+            recyclerView.setAdapter(newAdapter);
+            callback.setReorderable(newAdapter);
             swipe.setRefreshing(false);
         });
 
-        List<Item> items = itemHolder.getFilteredItems();
-        linearLayout.setLayoutManager(new LinearLayoutManager(this));
-        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), items, this));
-
         for (int i = 0; i < items.size(); i++) {
             if (itemHolder.isEditedItem(items.get(i)))
-                linearLayout.scrollToPosition(i);
+                recyclerView.scrollToPosition(i);
         }
 
         itemHolder.forgetIndexOfEditedItem();

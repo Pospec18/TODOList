@@ -107,4 +107,14 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     public void select() {
         editPanel.setVisibility(View.VISIBLE);
     }
+
+    public void startReordering() {
+        background.setColor(FilledTypeToColor.transparent(item.getFilledType(), context));
+        background.setAlpha(220);
+    }
+
+    public void endReordering() {
+        background.setColor(FilledTypeToColor.primary(item.getFilledType(), context));
+        background.setAlpha(255);
+    }
 }

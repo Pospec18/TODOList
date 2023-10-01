@@ -31,4 +31,17 @@ public class FilledTypeToColor {
                 return ContextCompat.getColor(context, R.color.red_700);
         }
     }
+
+    public static int transparent(FilledType type, Context context) {
+        switch (type) {
+            case FULLY:
+                return ContextCompat.getColor(context, R.color.green_200);
+            case PARTIALLY:
+                return ContextCompat.getColor(context, R.color.blue_200);
+            case OPTIONAL:
+                return ContextCompat.getColor(context, R.color.gray_200);
+            default:
+                return ContextCompat.getColor(context, R.color.red_200);
+        }
+    }
 }

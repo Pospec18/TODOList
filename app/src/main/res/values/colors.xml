@@ -5,8 +5,10 @@
     <color name="transparent">#00000000</color>
     <color name="bg_200">#000000</color>
     <color name="bg_500">#FF000053</color>
+    <color name="red_200">#E83F7A</color>
     <color name="red_500">#AC0741</color>
     <color name="red_700">#771F3E</color>
+    <color name="green_200">#3DDFAC</color>
     <color name="green_500">#039A6A</color>
     <color name="green_700">#2A6557</color>
     <color name="blue_200">#405DF1</color>

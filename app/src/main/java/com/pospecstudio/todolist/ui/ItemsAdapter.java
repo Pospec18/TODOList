@@ -11,12 +11,13 @@ import com.pospecstudio.todolist.MainActivity;
 import com.pospecstudio.todolist.data.Item;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> implements RecycleViewReorderable<ItemsViewHolder> {
 
     private final Context context;
-    private final List<Item> items;
+    private List<Item> items;
     private final MainActivity main;
 
     private Item selected = null;
@@ -26,6 +27,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
         this.context = context;
         this.items = items;
         this.main = main;
+    }
+
+    public void resetList(List<Item> items) {
+        this.items = items;
     }
 
     @NonNull
@@ -74,5 +79,34 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
         selectedHolder = view;
         selected = item;
         view.select();
+    }
+
+    @Override
+    public void onRowMoved(int from, int to) {
+        if(from < to)
+        {
+            for(int i = from; i < to; i++)
+            {
+                Collections.swap(items, i, i+1);
+            }
+        }
+        else
+        {
+            for(int i = from; i > to; i--)
+            {
+                Collections.swap(items, i, i-1);
+            }
+        }
+        notifyItemMoved(from, to);
+    }
+
+    @Override
+    public void onRowSelected(ItemsViewHolder view) {
+        view.startReordering();
+    }
+
+    @Override
+    public void onRowClear(ItemsViewHolder view) {
+        view.endReordering();
     }
 }

@@ -90,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         swipe.setOnRefreshListener(() -> {
-            linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems()));
+            linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems(), this));
             swipe.setRefreshing(false);
         });
 
         List<Item> items = itemHolder.getFilteredItems();
         linearLayout.setLayoutManager(new LinearLayoutManager(this));
-        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), items));
+        linearLayout.setAdapter(new ItemsAdapter(getApplicationContext(), items, this));
 
         for (int i = 0; i < items.size(); i++) {
             if (itemHolder.isEditedItem(items.get(i)))

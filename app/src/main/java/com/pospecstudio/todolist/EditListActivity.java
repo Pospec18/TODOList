@@ -21,7 +21,6 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.pospecstudio.todolist.data.ListNames;
 
 import java.io.IOException;
-import java.io.PrintStream;
 
 public class EditListActivity extends AppCompatActivity {
     private boolean creatingList;
@@ -49,12 +48,13 @@ public class EditListActivity extends AppCompatActivity {
             setTitle("ADD LIST");
         else {
             setTitle("EDIT LIST");
-            EditText editName = findViewById(R.id.editName);
+            EditText editName = findViewById(R.id.edit_name);
             editName.setText(list.getListName());
         }
 
-        findViewById(R.id.deleteItem).setVisibility(creatingList ? View.GONE : View.VISIBLE);
-        findViewById(R.id.exportToCsv).setVisibility(creatingList ? View.GONE : View.VISIBLE);
+        findViewById(R.id.delete_item).setVisibility(creatingList ? View.GONE : View.VISIBLE);
+        findViewById(R.id.export_to_csv).setVisibility(creatingList ? View.GONE : View.VISIBLE);
+        findViewById(R.id.to_clipboard).setVisibility(creatingList ? View.GONE : View.VISIBLE);
 
         onImportCSV = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -129,7 +129,7 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     private boolean saveEdit() {
-        EditText editName = findViewById(R.id.editName);
+        EditText editName = findViewById(R.id.edit_name);
         if (editName.getText().length() == 0) {
             showMessage("Name must be filled");
             return false;
@@ -163,6 +163,7 @@ public class EditListActivity extends AppCompatActivity {
         holder.print(text);
         ClipData clip = ClipData.newPlainText(list.getListName(), text);
         clipboard.setPrimaryClip(clip);
+        showMessage("copied to clipboard");
     }
 
     public void exportToCSV(View v) {
@@ -175,7 +176,7 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void importCSV(View v) {
-        EditText editName = findViewById(R.id.editName);
+        EditText editName = findViewById(R.id.edit_name);
         if (editName.getText().length() == 0) {
             showMessage("Name must be filled");
             return;

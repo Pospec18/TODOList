@@ -33,7 +33,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="changeCount" parent="ShapeAppearanceOverlay.Material3.Button">
+    <style name="change_count" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:textAppearance">@style/text</item>
         <item name="android:layout_width">wrap_content</item>
@@ -55,7 +55,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
     </style>
-    <style name="filterChip" parent="Widget.Material3.ChipGroup">
+    <style name="filter_chip" parent="Widget.Material3.ChipGroup">
         <item name="android:textAppearance">@style/text</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:checkable">true</item>
@@ -68,7 +68,7 @@
         <item name="android:layout_marginLeft">4dp</item>
         <item name="android:layout_marginRight">4dp</item>
     </style>
-    <style name="itemValue" parent="text">
+    <style name="item_value" parent="text">
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:layout_width">wrap_content</item>

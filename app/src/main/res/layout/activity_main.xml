@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <Button
-                android:text="all lists"
+                android:text="@string/all_lists"
                 android:onClick="changeList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/button4"
@@ -19,7 +19,7 @@
                 android:backgroundTint="@color/blue_500"/>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp" android:layout_weight="1" android:contentDescription="items"
+                android:layout_height="0dp" android:layout_weight="1" android:contentDescription="@string/items"
                 android:id="@+id/swipe">
             <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@android:id/list">
 
@@ -32,7 +32,8 @@
             <ImageButton
                     app:srcCompat="@drawable/ic_add_icon"
                     android:id="@+id/add" style="@style/bottom_panel_icon_button"
-                    android:onClick="add" android:contentDescription="add"/>
+                    android:onClick="add"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:contentDescription="@string/add"/>
             <!--
             <ImageButton
                     app:srcCompat="@drawable/ic_done_icon"
@@ -45,7 +46,7 @@
                     android:id="@+id/filter" style="@style/bottom_panel_icon_button"
                     android:layout_height="wrap_content"
                     android:onClick="filter"
-                    android:layout_weight="1" android:contentDescription="filter" android:layout_width="wrap_content"/>
+                    android:layout_weight="1" android:contentDescription="@string/filter"/>
             <!--
             <ImageButton
                     app:srcCompat="@drawable/ic_icon_settings"

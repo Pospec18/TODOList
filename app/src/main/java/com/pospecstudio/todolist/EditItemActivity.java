@@ -35,8 +35,8 @@ public class EditItemActivity extends AppCompatActivity {
             setTitle("ADD ITEM");
         else {
             setTitle("EDIT ITEM");
-            EditText editName = findViewById(R.id.editName);
-            EditText editCount = findViewById(R.id.editIdealCount);
+            EditText editName = findViewById(R.id.edit_name);
+            EditText editCount = findViewById(R.id.edit_ideal_count);
             CheckBox optional = findViewById(R.id.optional);
 
             editName.setText(editedItem.getItemName());
@@ -44,7 +44,7 @@ public class EditItemActivity extends AppCompatActivity {
             optional.setChecked(editedItem.isOptional());
         }
 
-        findViewById(R.id.deleteItem).setVisibility(creatingItem ? View.GONE : View.VISIBLE);
+        findViewById(R.id.delete_item).setVisibility(creatingItem ? View.GONE : View.VISIBLE);
     }
 
     private void showMessage(String message) {
@@ -52,8 +52,8 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void applyEdit(View v) {
-        EditText editName = findViewById(R.id.editName);
-        EditText editCount = findViewById(R.id.editIdealCount);
+        EditText editName = findViewById(R.id.edit_name);
+        EditText editCount = findViewById(R.id.edit_ideal_count);
         CheckBox optional = findViewById(R.id.optional);
 
         if (editName.getText().length() == 0) {

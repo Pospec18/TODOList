@@ -16,9 +16,9 @@
                 android:background="@color/transparent"
         />
         <TextView
-                android:text="Show:"
+                android:text="@string/filter_colors"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/nameText" style="@style/text"
+                android:layout_height="wrap_content" android:id="@+id/name_text" style="@style/text"
                 android:gravity="start" android:fontFamily="monospace" android:textAllCaps="true"
                 android:paddingLeft="10dp" android:paddingRight="10dp"/>
         <LinearLayout
@@ -28,25 +28,25 @@
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/fully"
-                    style="@style/filterChip"
+                    style="@style/filter_chip"
                     app:chipSurfaceColor="@color/green_500"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/partially"
-                    style="@style/filterChip"
+                    style="@style/filter_chip"
                     app:chipSurfaceColor="@color/blue_500"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/empty"
-                    style="@style/filterChip"
+                    style="@style/filter_chip"
                     app:chipSurfaceColor="@color/red_500"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/optional"
-                    style="@style/filterChip"
+                    style="@style/filter_chip"
                     app:chipSurfaceColor="@color/gray_500"
             />
         </LinearLayout>
@@ -62,14 +62,14 @@
                 android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
                 android:layout_weight="0">
             <Button
-                    android:text="apply"
+                    android:text="@string/apply"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/addList" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:id="@+id/apply" android:layout_weight="1"
                     style="@style/bottom_panel_button" android:onClick="apply"/>
             <Button
-                    android:text="cancel"
+                    android:text="@string/cancel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/cancelEdit" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:id="@+id/cancel_edit" android:layout_weight="1"
                     style="@style/bottom_panel_button" android:onClick="cancel"/>
         </LinearLayout>
     </LinearLayout>

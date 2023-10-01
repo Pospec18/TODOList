@@ -34,11 +34,11 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.main = main;
         context = itemView.getContext();
-        nameText = itemView.findViewById(R.id.nameText);
-        idealText = itemView.findViewById(R.id.idealCountText);
-        currentText = itemView.findViewById(R.id.currCountText);
-        editPanel = itemView.findViewById(R.id.editPanel);
-        editButton = itemView.findViewById(R.id.editButton);
+        nameText = itemView.findViewById(R.id.name_text);
+        idealText = itemView.findViewById(R.id.ideal_count_text);
+        currentText = itemView.findViewById(R.id.curr_count_text);
+        editPanel = itemView.findViewById(R.id.edit_panel);
+        editButton = itemView.findViewById(R.id.edit_button);
 
         editPanel.setVisibility(View.GONE);
         editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_edit_icon));
@@ -93,6 +93,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         try {
             item.setCurrCount(Integer.parseInt(currentText.getText().toString()));
             main.saveItems();
+            updateColors();
         } catch (NumberFormatException nfe) {
             main.showMessage("Ideal count must be number.");
         }

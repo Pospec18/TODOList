@@ -12,7 +12,7 @@
             android:layout_height="match_parent">
         <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:layout_weight="1" android:contentDescription="lists">
+                android:layout_height="wrap_content" android:layout_weight="1" android:contentDescription="@string/lists">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="vertical" android:id="@+id/list"/>
         </ScrollView>
@@ -25,7 +25,7 @@
                     app:srcCompat="@drawable/ic_add_icon"
                     android:id="@+id/add_list" style="@style/bottom_panel_icon_button"
                     android:onClick="addList"
-                    android:contentDescription="add"/>
+                    android:contentDescription="@string/add"/>
 
         </LinearLayout>
     </LinearLayout>

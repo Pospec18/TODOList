@@ -29,7 +29,7 @@
                 android:ems="10"
                 android:id="@+id/editName" android:minHeight="48dp"
                 android:inputType="text" style="@style/input_field" android:hint="name of the item"
-                android:autofillHints=""/>
+                android:autofillHints="" android:singleLine="true" android:imeOptions="actionNext"/>
         <TextView
                 android:text="goal count:"
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editIdealCount" android:minHeight="48dp" style="@style/input_field"
-                android:hint="goal count for the item" android:autofillHints=""/>
+                android:hint="goal count for the item" android:autofillHints="" android:singleLine="true" android:imeOptions="actionDone"/>
         <CheckBox
                 android:text="optional to have"
                 android:layout_width="match_parent"

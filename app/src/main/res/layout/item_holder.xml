@@ -13,7 +13,8 @@
 
     <EditText style="@style/itemValue" android:background="@drawable/item_background"
               android:text="5" android:id="@+id/currCountText" android:inputType="number"
-              tools:ignore="LabelFor" android:autofillHints="1"/>
+              tools:ignore="LabelFor" android:autofillHints="1"
+              android:imeOptions="actionDone" android:singleLine="true"/>
 
     <LinearLayout style="@style/itemValue" android:id="@+id/editPanel">
         <Button android:layout_width="wrap_content" android:layout_height="match_parent" style="@style/changeCount"

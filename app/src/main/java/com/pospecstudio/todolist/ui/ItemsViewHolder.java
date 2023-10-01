@@ -2,7 +2,9 @@ package com.pospecstudio.todolist.ui;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,14 +38,17 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         idealText = itemView.findViewById(R.id.idealCountText);
         currentText = itemView.findViewById(R.id.currCountText);
         editPanel = itemView.findViewById(R.id.editPanel);
-        editPanel.setVisibility(View.GONE);
         editButton = itemView.findViewById(R.id.editButton);
+
+        editPanel.setVisibility(View.GONE);
         editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_edit_icon));
         ((GradientDrawable)editButton.getBackground()).setColor(ContextCompat.getColor(context, R.color.white));
+
         background = (GradientDrawable) itemView.getBackground();
         currentTextBackground = (GradientDrawable) currentText.getBackground();
 
         editButton.setOnClickListener(this::editItem);
+        currentText.setOnEditorActionListener(this::setCurrentText);
         itemView.findViewById(R.id.increase).setOnClickListener(this::increase);
         itemView.findViewById(R.id.decrease).setOnClickListener(this::decrease);
     }
@@ -80,6 +85,18 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
 
     public void editItem(View v) {
         main.editItem(item);
+    }
+
+    public boolean setCurrentText(View view, int actionId, KeyEvent keyEvent) {
+        if (actionId != EditorInfo.IME_ACTION_DONE)
+            return false;
+        try {
+            item.setCurrCount(Integer.parseInt(currentText.getText().toString()));
+            main.saveItems();
+        } catch (NumberFormatException nfe) {
+            main.showMessage("Ideal count must be number.");
+        }
+        return false;
     }
 
     public void deselect() {

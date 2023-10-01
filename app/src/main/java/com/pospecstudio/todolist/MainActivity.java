@@ -3,9 +3,6 @@ package com.pospecstudio.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,16 +10,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.data.*;
 import com.pospecstudio.todolist.ui.InfoDialogFragment;
-import com.pospecstudio.todolist.ui.ItemView;
 import com.pospecstudio.todolist.ui.ItemsAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ItemHolder itemHolder;
-    private ItemView selected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,15 +107,6 @@ public class MainActivity extends AppCompatActivity {
     public void changeList(View v) {
         Intent intent = new Intent(this, SwitchListActivity.class);
         startActivity(intent);
-    }
-
-    public void selectItem(ItemView item) {
-        if (selected != null)
-            selected.deselect();
-
-        if (item != null)
-            item.select();
-        selected = item;
     }
 
     public void showMessage(String message) {

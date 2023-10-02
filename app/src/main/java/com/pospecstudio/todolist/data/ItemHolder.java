@@ -6,6 +6,7 @@ import com.pospecstudio.todolist.csv.CSVParser;
 import com.pospecstudio.todolist.csv.CSVSerializable;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.pospecstudio.todolist.helper.Collections;
 
 import java.io.*;
 import java.util.List;
@@ -85,6 +86,24 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
 
     public boolean isEditedItem(Item item) {
         return indexOf(item) == editedItemIdx;
+    }
+
+    public void moveAboveItem(Item itemToMove, Item itemToStay) {
+        if (itemToStay == null)
+            moveItemToEnd(itemToMove);
+
+        int from = items.indexOf(itemToMove);
+        int to = items.indexOf(itemToStay);
+        if (from < to)
+            to--;
+
+        if (from >= 0 && to >= 0)
+            Collections.move(items, from, to);
+    }
+
+    public void moveItemToEnd(Item item) {
+        items.remove(item);
+        items.add(item);
     }
 
     @Override

@@ -116,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void moveAboveItem(Item itemToMove, Item itemToStay) {
+        itemHolder.moveAboveItem(itemToMove, itemToStay);
+        saveItems();
+    }
+
     public void showMessage(String message) {
         InfoDialogFragment.showMessage(message, getSupportFragmentManager());
     }

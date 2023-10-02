@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.MainActivity;
 import com.pospecstudio.todolist.data.Item;
+import com.pospecstudio.todolist.helper.Collections;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> implements RecycleViewReorderable<ItemsViewHolder> {
@@ -83,20 +83,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> implemen
 
     @Override
     public void onRowMoved(int from, int to) {
-        if(from < to)
-        {
-            for(int i = from; i < to; i++)
-            {
-                Collections.swap(items, i, i+1);
-            }
-        }
-        else
-        {
-            for(int i = from; i > to; i--)
-            {
-                Collections.swap(items, i, i-1);
-            }
-        }
+        Item toMove = items.get(from);
+        int toStayIndex = to;
+        if (from < to)
+            toStayIndex++;
+        Item toStay = toStayIndex >= items.size() ? null : items.get(toStayIndex);
+        main.moveAboveItem(toMove, toStay);
+
+        Collections.move(items, from, to);
         notifyItemMoved(from, to);
     }
 

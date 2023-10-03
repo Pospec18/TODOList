@@ -42,6 +42,7 @@ public class ItemListsHolder implements Serializable {
     }
 
     public void addList(ListNames list) {
+        lastUsedListIdx = listsData.size();
         listsData.add(list);
     }
 
@@ -54,9 +55,10 @@ public class ItemListsHolder implements Serializable {
     }
 
     public ListNames getListToEdit(int index) {
+        lastUsedListIdx = index;
         return listsData.get(index);
     }
-
+    
     public void moveAboveItem(ListNames itemToMove, ListNames itemToStay) {
         if (itemToStay == null) {
             moveItemToEnd(itemToMove);

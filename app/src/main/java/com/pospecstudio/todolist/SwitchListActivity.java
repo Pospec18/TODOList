@@ -13,6 +13,8 @@ import com.pospecstudio.todolist.data.ListNames;
 import com.pospecstudio.todolist.data.SaveAndLoad;
 import com.pospecstudio.todolist.ui.*;
 
+import java.util.List;
+
 public class SwitchListActivity  extends AppCompatActivity {
 
     private ItemListsHolder lists;
@@ -33,13 +35,18 @@ public class SwitchListActivity  extends AppCompatActivity {
         setContentView(R.layout.screen_of_lists);
         setTitle("CLICK ON LIST TO SELECT IT");
 
+        List<ListNames> filteredLists = lists.getFilteredLists();
         RecyclerView recyclerView = findViewById(android.R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ListsAdapter adapter = new ListsAdapter(getApplicationContext(), lists.getFilteredLists(), this);
+        ListsAdapter adapter = new ListsAdapter(getApplicationContext(), filteredLists, this);
         recyclerView.setAdapter(adapter);
         RecycleRowMoveCallback<ListViewHolder> callback = new RecycleRowMoveCallback<>(adapter, ListViewHolder.class);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
+
+        int lastUsedListIndex = filteredLists.indexOf(lists.getLastUsedList());
+        if (lastUsedListIndex >= 0)
+            recyclerView.scrollToPosition(lastUsedListIndex);
     }
 
     public void selectList(ListNames list) {

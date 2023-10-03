@@ -9,6 +9,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.pospecstudio.todolist.helper.Collections;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return filterItems(item -> true);
         } else {
-            return items;
+            return new ArrayList<>(items);
         }
     }
 
@@ -89,8 +90,10 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
     }
 
     public void moveAboveItem(Item itemToMove, Item itemToStay) {
-        if (itemToStay == null)
+        if (itemToStay == null) {
             moveItemToEnd(itemToMove);
+            return;
+        }
 
         int from = items.indexOf(itemToMove);
         int to = items.indexOf(itemToStay);

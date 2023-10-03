@@ -3,13 +3,15 @@ package com.pospecstudio.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.data.ItemListsHolder;
 import com.pospecstudio.todolist.data.ListNames;
 import com.pospecstudio.todolist.data.SaveAndLoad;
-import com.pospecstudio.todolist.ui.ListView;
+import com.pospecstudio.todolist.ui.*;
 
 public class SwitchListActivity  extends AppCompatActivity {
 
@@ -30,13 +32,18 @@ public class SwitchListActivity  extends AppCompatActivity {
         lists = SaveAndLoad.loadLists(getApplicationContext());
         setContentView(R.layout.screen_of_lists);
         setTitle("CLICK ON LIST TO SELECT IT");
-        LinearLayout linearLayout = findViewById(R.id.list);
-        for (ListNames data : lists.getListsData())
-            linearLayout.addView(new ListView(linearLayout.getContext(), data, this));
+
+        RecyclerView recyclerView = findViewById(android.R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ListsAdapter adapter = new ListsAdapter(getApplicationContext(), lists.getFilteredLists(), this);
+        recyclerView.setAdapter(adapter);
+        RecycleRowMoveCallback<ListViewHolder> callback = new RecycleRowMoveCallback<>(adapter, ListViewHolder.class);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
     }
 
     public void selectList(ListNames list) {
-        lists.setLastUsedListIdx(lists.getListsData().indexOf(list));
+        lists.setLastUsedList(list);
         SaveAndLoad.saveLists(lists, getApplicationContext());
         finish();
     }
@@ -46,7 +53,7 @@ public class SwitchListActivity  extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putBoolean("creatingList", false);
         bundle.putSerializable("lists", lists);
-        bundle.putInt("itemIdx", lists.getListsData().indexOf(list));
+        bundle.putInt("itemIdx", lists.indexOf(list));
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -59,5 +66,10 @@ public class SwitchListActivity  extends AppCompatActivity {
         bundle.putInt("itemIdx", 0);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void moveAboveItem(ListNames itemToMove, ListNames itemToStay) {
+        lists.moveAboveItem(itemToMove, itemToStay);
+        SaveAndLoad.saveLists(lists, getApplicationContext());
     }
 }

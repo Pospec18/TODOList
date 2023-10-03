@@ -39,7 +39,7 @@ public class EditListActivity extends AppCompatActivity {
 
             if (!creatingList){
                 int index = extras.getInt("itemIdx");
-                list = lists.getListsData().get(index);
+                list = lists.getListToEdit(index);
             }
         }
 
@@ -137,7 +137,7 @@ public class EditListActivity extends AppCompatActivity {
 
         if(creatingList) {
             list = new ListNames(editName.getText().toString(), lists.getNextListName());
-            lists.getListsData().add(list);
+            lists.addList(list);
         }
         else
             list.setListName(editName.getText().toString());
@@ -150,7 +150,7 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void deleteList(View v) {
-        lists.getListsData().remove(list);
+        lists.removeList(list);
         SaveAndLoad.saveLists(lists, getApplicationContext());
         SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
         finish();

@@ -5,7 +5,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import androidx.activity.result.ActivityResultLauncher;
@@ -35,7 +37,10 @@ public class EditListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             creatingList = extras.getBoolean("creatingList");
-            lists = (ItemListsHolder) extras.getSerializable("lists");
+            if (Build.VERSION.SDK_INT >= 33)
+                lists = extras.getSerializable("lists", ItemListsHolder.class);
+            else
+                lists = (ItemListsHolder) extras.getSerializable("lists");
 
             if (!creatingList){
                 int index = extras.getInt("itemIdx");
@@ -66,24 +71,23 @@ public class EditListActivity extends AppCompatActivity {
                         ItemHolder holder = SaveAndLoad.loadItems(list.getFileName(), getApplicationContext());
                         try {
                             SaveAndLoad.importListFromCSV(getContentResolver(), data.getData(), holder);
+                            SaveAndLoad.saveItems(holder, getApplicationContext());
                             showMessage("Import successful.");
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e("Import", "Tried to import file", e);
                             showMessage("Problem in reading from file while importing.");
                             return;
                         } catch (IllegalStateException e) {
-                            e.printStackTrace();
+                            Log.e("Import", "Tried to import file", e);
                             showMessage("Invalid structure of data to import.");
                             return;
                         } catch (Throwable e) {
-                            e.printStackTrace();
-                            showMessage("Unidentified error occurred while importing.");
+                            Log.e("Import", "Tried to import file", e);
+                            showMessage("Unidentified error occurred while importing:\n" + e.getMessage());
                             return;
                         }
 
-                        SaveAndLoad.saveItems(holder, getApplicationContext());
-                        if (creatingList)
-                            finish();
+                        finish();
                     }
                 }
         );
@@ -101,17 +105,17 @@ public class EditListActivity extends AppCompatActivity {
                             SaveAndLoad.exportListToCSV(getContentResolver(), data.getData(), holder);
                             showMessage("Export successful.");
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e("Export", "Tried to import file", e);
                             showMessage("Problem in writing to file while exporting.");
                         } catch (CsvRequiredFieldEmptyException e) {
-                            e.printStackTrace();
+                            Log.e("Export", "Tried to import file", e);
                             showMessage("Required field of exporting data is missing.");
                         } catch (CsvDataTypeMismatchException e) {
-                            e.printStackTrace();
+                            Log.e("Export", "Tried to import file", e);
                             showMessage("Invalid structure of data to export.");
                         } catch (Throwable e) {
-                            e.printStackTrace();
-                            showMessage("Unidentified error occurred while exporting.");
+                            Log.e("Export", "Tried to import file", e);
+                            showMessage("Unidentified error occurred while exporting:\n" + e.getMessage());
                         }
                     }
                 }

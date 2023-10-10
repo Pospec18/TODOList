@@ -58,7 +58,7 @@ public class ItemListsHolder implements Serializable {
         lastUsedListIdx = index;
         return listsData.get(index);
     }
-    
+
     public void moveAboveItem(ListNames itemToMove, ListNames itemToStay) {
         if (itemToStay == null) {
             moveItemToEnd(itemToMove);

@@ -1,5 +1,6 @@
 package com.pospecstudio.todolist;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,7 +23,11 @@ public class EditItemActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             creatingItem = extras.getBoolean("creatingItem");
-            itemHolder = (ItemHolder) extras.getSerializable("itemHolder");
+
+            if (Build.VERSION.SDK_INT >= 33)
+                itemHolder = extras.getSerializable("itemHolder", ItemHolder.class);
+            else
+                itemHolder = (ItemHolder) extras.getSerializable("itemHolder");
 
             if (creatingItem)
                 editedItem = new Item();

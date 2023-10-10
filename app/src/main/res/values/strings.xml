@@ -12,7 +12,7 @@
     <string name="list_name">name:</string>
     <string name="list_name_hint">name of the list</string>
     <string name="list_clipboard">list to clipboard</string>
-    <string name="export_list">export ot file</string>
+    <string name="export_list">export to file</string>
     <string name="import_list">import from file</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>

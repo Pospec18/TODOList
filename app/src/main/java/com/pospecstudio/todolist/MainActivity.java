@@ -2,6 +2,7 @@ package com.pospecstudio.todolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setup();
 
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
-            e.printStackTrace();
+            Log.e("Uncaught error", "Unexpected error occurred", e);
             showMessage("Unexpected error occurred");
         });
     }

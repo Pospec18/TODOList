@@ -1,5 +1,6 @@
 package com.pospecstudio.todolist;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -21,8 +22,12 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null)
-            itemHolder = (ItemHolder) extras.getSerializable("itemHolder");
+        if (extras != null) {
+            if (Build.VERSION.SDK_INT >= 33)
+                itemHolder = extras.getSerializable("itemHolder", ItemHolder.class);
+            else
+                itemHolder = (ItemHolder) extras.getSerializable("itemHolder");
+        }
 
         if (itemHolder == null) {
             finish();

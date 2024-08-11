@@ -9,6 +9,8 @@ import com.example.todolist.R;
 import com.google.android.material.chip.Chip;
 import com.pospecstudio.todolist.data.*;
 
+import java.util.Comparator;
+
 public class FilterActivity extends AppCompatActivity {
     private ItemHolder itemHolder = null;
     private Filter filter = null;
@@ -48,6 +50,16 @@ public class FilterActivity extends AppCompatActivity {
 
         optional = findViewById(R.id.optional);
         optional.setChecked(filter.canShow(FilledType.OPTIONAL));
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            SortingType alphabet = new SortingType("Alphabetically", Comparator.comparing(Item::getItemName));
+            SortingType idealCount = new SortingType("Ideal count", Comparator.comparing(Item::getIdealCount));
+            SortingType currCount = new SortingType("Current count", Comparator.comparing(Item::getCurrCount));
+            SortingType age = new SortingType("Age", Comparator.comparing(Item::getCreatedTime));
+            SortingType lastUsed = new SortingType("Last used", Comparator.comparing(Item::getChangedTime));
+            SortingType mostUsed = new SortingType("Most used", Comparator.comparing(Item::getNumberOfChanges));
+            SortingType state = new SortingType("State", Comparator.comparing(Item::getFilledType));
+        }
     }
 
     private void applyFilledType(Chip chip, FilledType filledType) {

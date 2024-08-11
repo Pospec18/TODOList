@@ -10,6 +10,7 @@ import com.pospecstudio.todolist.helper.Collections;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -19,6 +20,8 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
     private final String fileName;
     private int editedItemIdx = -1;
     private Filter filter = new Filter();
+    private final List<SortingType> sortingOrder = new ArrayList<>();
+
     private static final long serialVersionUID = 5480838046586935873L;
 
     public ItemHolder(List<Item> items, String fileName) {
@@ -35,7 +38,7 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
 
     public List<Item> getFilteredItems() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return filterItems(item -> true);
+            return filterItems();
         } else {
             return new ArrayList<>(items);
         }
@@ -49,10 +52,33 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
                 .collect(Collectors.toList());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<Item> filterItems() {
+        if (sortingOrder.size() == 0)
+            return items.stream()
+                    .filter(this::canShowItem)
+                    .collect(Collectors.toList());
+
+        return items.stream()
+                .filter(this::canShowItem)
+                .sorted(this::sort)
+                .collect(Collectors.toList());
+    }
+
     private boolean canShowItem(Item item) {
         if (isEditedItem(item))
             return true;
         return filter.canShow(item);
+    }
+
+    private int sort(Item a, Item b) {
+        for (SortingType comparator : sortingOrder) {
+            int result = comparator.compare(a, b);
+            if (result != 0)
+                return result;
+        }
+
+        return indexOf(a) - indexOf(b);
     }
 
     public void addItem(Item item) {

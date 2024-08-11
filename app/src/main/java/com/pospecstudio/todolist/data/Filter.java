@@ -1,9 +1,7 @@
 package com.pospecstudio.todolist.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class Filter implements Serializable {
     private final Set<FilledType> showTypes;

@@ -38,7 +38,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         idealText = itemView.findViewById(R.id.ideal_count_text);
         currentText = itemView.findViewById(R.id.curr_count_text);
         editPanel = itemView.findViewById(R.id.edit_panel);
-        editButton = itemView.findViewById(R.id.edit_button);
+        editButton = itemView.findViewById(R.id.close_button);
 
         editPanel.setVisibility(View.GONE);
         editButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_edit_icon));
@@ -88,7 +88,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public boolean setCurrentText(View view, int actionId, KeyEvent keyEvent) {
-        if (actionId != EditorInfo.IME_ACTION_DONE)
+        if (actionId != EditorInfo.IME_ACTION_DONE && actionId != EditorInfo.IME_ACTION_NEXT && actionId != EditorInfo.IME_ACTION_SEND)
             return false;
         try {
             item.setCurrCount(Integer.parseInt(currentText.getText().toString()));

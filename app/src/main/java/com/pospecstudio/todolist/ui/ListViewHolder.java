@@ -27,7 +27,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
         context = itemView.getContext();
         nameText = itemView.findViewById(R.id.name_text);
         background = (GradientDrawable) itemView.getBackground();
-        ImageButton editButton = itemView.findViewById(R.id.edit_button);
+        ImageButton editButton = itemView.findViewById(R.id.close_button);
 
         editButton.setColorFilter(FilledTypeToColor.primary(FilledType.PARTIALLY, context), android.graphics.PorterDuff.Mode.MULTIPLY);
 

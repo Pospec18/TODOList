@@ -19,6 +19,7 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
     private final String fileName;
     private int editedItemIdx = -1;
     private Filter filter = new Filter();
+    private List<SortingType> sortingOrder = new ArrayList<>();
     private static final long serialVersionUID = 5480838046586935873L;
 
     public ItemHolder(List<Item> items, String fileName) {
@@ -31,23 +32,42 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
         aInputStream.defaultReadObject();
         if (filter == null)
             filter = new Filter();
+        if (sortingOrder == null)
+            sortingOrder = new ArrayList<>();
     }
 
     public List<Item> getFilteredItems() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return filterItems(item -> true);
+            return filterItems();
         } else {
             return new ArrayList<>(items);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public List<Item> filterItems(Predicate<? super Item> predicate) {
+    public List<Item> filterItems() {
+        if (sortingOrder.size() == 0) {
+            return items.stream()
+                    .filter(this::canShowItem)
+                    .collect(Collectors.toList());
+        }
+
         return items.stream()
                 .filter(this::canShowItem)
-                .filter(predicate)
+                .sorted(this::sort)
                 .collect(Collectors.toList());
     }
+
+    private int sort(Item a, Item b) {
+        for (SortingType comparator : sortingOrder) {
+            int result = comparator.compare(a, b);
+            if (result != 0)
+                return result;
+        }
+
+        return indexOf(a) - indexOf(b);
+    }
+
 
     private boolean canShowItem(Item item) {
         if (isEditedItem(item))

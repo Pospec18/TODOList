@@ -71,7 +71,7 @@
                          android:layout_width="wrap_content" android:layout_height="48dp"
                          android:background="@drawable/item_background"
                          android:backgroundTint="@color/blue_700"
-                         android:id="@+id/close_button"
+                         android:id="@+id/add"
                          android:contentDescription="@string/delete" android:minWidth="48dp" android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

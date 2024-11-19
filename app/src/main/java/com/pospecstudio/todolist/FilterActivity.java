@@ -3,6 +3,7 @@ package com.pospecstudio.todolist;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,6 +72,11 @@ public class FilterActivity extends AppCompatActivity {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
+        ImageButton addSortButton = findViewById(R.id.add);
+        addSortButton.setOnClickListener(this::addSortType);
+    }
+
+    private void addSortType(View view) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             SortingType alphabet = new SortingType("Alphabetically",
                     Comparator.comparing((Function<Item, String> & Serializable)Item::getItemName));
@@ -86,8 +92,9 @@ public class FilterActivity extends AppCompatActivity {
                     Comparator.comparing((Function<Item, Integer> & Serializable)Item::getNumberOfChanges));
             SortingType state = new SortingType("State",
                     Comparator.comparing((Function<Item, FilledType> & Serializable)Item::getFilledType));
-            itemHolder.getSortingOrder().add(alphabet);
-            itemHolder.getSortingOrder().add(state);
+            itemHolder.getSortingOrder().add(idealCount);
+            recyclerView.getAdapter().notifyItemInserted(itemHolder.getSortingOrder().size() - 1);
+            save();
         }
     }
 

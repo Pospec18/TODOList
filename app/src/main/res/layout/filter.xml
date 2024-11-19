@@ -74,6 +74,11 @@
                          android:id="@+id/close_button"
                          android:contentDescription="@string/delete" android:minWidth="48dp" android:layout_marginEnd="10dp"/>
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@android:id/list">
+        </androidx.recyclerview.widget.RecyclerView>
         <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"

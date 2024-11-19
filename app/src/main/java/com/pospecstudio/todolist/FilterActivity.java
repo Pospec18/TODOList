@@ -3,15 +3,21 @@ package com.pospecstudio.todolist;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.google.android.material.chip.Chip;
 import com.pospecstudio.todolist.data.*;
+import com.pospecstudio.todolist.ui.*;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
 
 public class FilterActivity extends AppCompatActivity {
@@ -21,6 +27,8 @@ public class FilterActivity extends AppCompatActivity {
     private Chip partially;
     private Chip empty;
     private Chip optional;
+
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -54,6 +62,15 @@ public class FilterActivity extends AppCompatActivity {
         optional = findViewById(R.id.optional);
         optional.setChecked(filter.canShow(FilledType.OPTIONAL));
 
+        List<SortingType> items = itemHolder.getSortingOrder();
+        recyclerView = findViewById(android.R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SortedTypeAdapter adapter = new SortedTypeAdapter(getApplicationContext(), items, this);
+        recyclerView.setAdapter(adapter);
+        RecycleRowMoveCallback<SortedTypeView> callback = new RecycleRowMoveCallback<>(adapter, SortedTypeView.class);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             SortingType alphabet = new SortingType("Alphabetically",
                     Comparator.comparing((Function<Item, String> & Serializable)Item::getItemName));
@@ -86,11 +103,21 @@ public class FilterActivity extends AppCompatActivity {
         applyFilledType(partially, FilledType.PARTIALLY);
         applyFilledType(empty, FilledType.EMPTY);
         applyFilledType(optional, FilledType.OPTIONAL);
-        SaveAndLoad.saveItems(itemHolder, getApplicationContext());
+        save();
         finish();
     }
 
     public void cancel(View v) {
         finish();
+    }
+
+    public void deleteSortingType(int index) {
+        itemHolder.getSortingOrder().remove(index);
+        recyclerView.getAdapter().notifyItemRemoved(index);
+        save();
+    }
+
+    public void save() {
+        SaveAndLoad.saveItems(itemHolder, getApplicationContext());
     }
 }

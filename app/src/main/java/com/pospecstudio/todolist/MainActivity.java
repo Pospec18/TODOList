@@ -123,6 +123,15 @@ public class MainActivity extends AppCompatActivity {
         saveItems();
     }
 
+    public void reindexItems() {
+        int childCount = recyclerView.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final ItemsViewHolder holder = (ItemsViewHolder)recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
+            if (holder != null)
+                holder.drawIndex();
+        }
+    }
+
     public boolean showItemIndicies() {
         return !itemHolder.getSortingOrder().isEmpty();
     }

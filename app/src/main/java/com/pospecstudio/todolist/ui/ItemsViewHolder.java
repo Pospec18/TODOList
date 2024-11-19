@@ -128,7 +128,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
 
     public void drawIndex() {
         if (main.showItemIndicies())
-            indexText.setText(Integer.toString(getAdapterPosition()));
+            indexText.setText(String.format(Locale.ENGLISH,"%02d", getAdapterPosition() + 1));
         else
             indexText.setText("");
     }

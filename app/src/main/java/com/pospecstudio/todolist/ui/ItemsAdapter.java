@@ -102,5 +102,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> implemen
     @Override
     public void onRowClear(ItemsViewHolder view) {
         view.endReordering();
+        main.reindexItems();
     }
 }

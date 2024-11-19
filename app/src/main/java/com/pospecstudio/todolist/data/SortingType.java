@@ -1,8 +1,9 @@
 package com.pospecstudio.todolist.data;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class SortingType {
+public class SortingType implements Serializable {
     private final String title;
     private boolean isAscending;
     private final Comparator<? super Item> comparator;

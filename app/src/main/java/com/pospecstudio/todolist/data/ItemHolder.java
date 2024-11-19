@@ -10,7 +10,9 @@ import com.pospecstudio.todolist.helper.Collections;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -99,6 +101,10 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
 
     public Filter getFilter() {
         return filter;
+    }
+
+    public List<SortingType> getSortingOrder() {
+        return sortingOrder;
     }
 
     public void forgetIndexOfEditedItem() {

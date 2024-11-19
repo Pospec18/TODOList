@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" android:background="@drawable/item_background"
+              android:backgroundTint="@color/blue_500"
+              android:layout_marginVertical="4dp"
+              android:paddingEnd="6dp" android:paddingTop="6dp" android:paddingBottom="6dp"
+              android:minHeight="60dp" android:gravity="center">
+
+    <TextView android:layout_width="0dp" android:text="count" android:layout_height="match_parent" android:layout_weight="100"
+              android:id="@+id/name_text" style="@style/text" android:ellipsize="end" android:maxLines="1"
+              android:layout_marginStart="10dp" android:textAlignment="textStart"/>
+
+    <ImageButton app:srcCompat="@drawable/ic_asc_icon"
+                 android:layout_width="wrap_content" android:layout_height="match_parent"
+                 android:background="@drawable/item_background"
+                 android:backgroundTint="@color/blue_700"
+                 android:id="@+id/order_button"
+                 android:contentDescription="@string/sort_order" android:minWidth="48dp" android:layout_marginStart="4dp"/>
+    <ImageButton app:srcCompat="@drawable/ic_close_icon"
+                 android:layout_width="wrap_content" android:layout_height="match_parent"
+                 android:background="@drawable/item_background"
+                 android:backgroundTint="@color/blue_700"
+                 android:id="@+id/close_button"
+                 android:contentDescription="@string/delete" android:minWidth="48dp" android:layout_marginStart="4dp"/>
+</LinearLayout>

@@ -20,6 +20,7 @@
     <string name="back">Back</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+    <string name="sort_order">Sorting order</string>
     <string name="edit_item">edit item</string>
     <string name="items">items</string>
     <string name="lists">lists</string>

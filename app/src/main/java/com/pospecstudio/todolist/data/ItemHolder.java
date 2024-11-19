@@ -54,7 +54,7 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Item> filterItems() {
-        if (sortingOrder.size() == 0)
+        if (sortingOrder == null || sortingOrder.size() == 0)
             return items.stream()
                     .filter(this::canShowItem)
                     .collect(Collectors.toList());

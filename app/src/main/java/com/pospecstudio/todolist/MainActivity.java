@@ -18,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ItemHolder itemHolder;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("LIST: " + listNames.getListName().toUpperCase());
 
-        RecyclerView recyclerView = findViewById(android.R.id.list);
+        recyclerView = findViewById(android.R.id.list);
         SwipeRefreshLayout swipe = findViewById(R.id.swipe);
         if (itemHolder == null || recyclerView == null)
             return;
@@ -120,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
     public void moveAboveItem(Item itemToMove, Item itemToStay) {
         itemHolder.moveAboveItem(itemToMove, itemToStay);
         saveItems();
+    }
+
+    public boolean showItemIndicies() {
+        return !itemHolder.getSortingOrder().isEmpty();
     }
 
     public void showMessage(String message) {

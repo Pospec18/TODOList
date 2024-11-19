@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.MainActivity;
+import com.pospecstudio.todolist.data.FilledType;
 import com.pospecstudio.todolist.data.Item;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 public class ItemsViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
+    private final TextView indexText;
     private final TextView nameText;
     private final TextView idealText;
     private final EditText currentText;
@@ -34,6 +36,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.main = main;
         context = itemView.getContext();
+        indexText = itemView.findViewById(R.id.text_index);
         nameText = itemView.findViewById(R.id.name_text);
         idealText = itemView.findViewById(R.id.ideal_count_text);
         currentText = itemView.findViewById(R.id.curr_count_text);
@@ -51,6 +54,8 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         currentText.setOnEditorActionListener(this::setCurrentText);
         itemView.findViewById(R.id.increase).setOnClickListener(this::increase);
         itemView.findViewById(R.id.decrease).setOnClickListener(this::decrease);
+
+        // indexText.setText(getAdapterPosition());
     }
 
     public void bind(Item item) {
@@ -59,13 +64,16 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         idealText.setText(String.format(Locale.ENGLISH, "%d", item.getIdealCount()));
         currentText.setText(String.format(Locale.ENGLISH, "%d", item.getCurrCount()));
         updateColors();
+        drawIndex();
     }
 
     private void updateColors() {
-        background.setColor(FilledTypeToColor.primary(item.getFilledType(), context));
+        FilledType type = item.getFilledType();
+        background.setColor(FilledTypeToColor.primary(type, context));
         currentText.setText(String.format(Locale.ENGLISH, "%d", item.getCurrCount()));
-        currentTextBackground.setColor(FilledTypeToColor.secondary(item.getFilledType(), context));
-        editButton.setColorFilter(FilledTypeToColor.primary(item.getFilledType(), context), android.graphics.PorterDuff.Mode.MULTIPLY);
+        currentTextBackground.setColor(FilledTypeToColor.secondary(type, context));
+        editButton.setColorFilter(FilledTypeToColor.primary(type, context), android.graphics.PorterDuff.Mode.MULTIPLY);
+        indexText.setTextColor(FilledTypeToColor.secondary(type, context));
     }
 
     public void increase(View v) {
@@ -116,5 +124,12 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     public void endReordering() {
         background.setColor(FilledTypeToColor.primary(item.getFilledType(), context));
         background.setAlpha(255);
+    }
+
+    public void drawIndex() {
+        if (main.showItemIndicies())
+            indexText.setText(Integer.toString(getAdapterPosition()));
+        else
+            indexText.setText("");
     }
 }

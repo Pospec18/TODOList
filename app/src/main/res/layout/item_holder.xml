@@ -5,6 +5,9 @@
                 android:layout_marginVertical="4dp"
                 android:minHeight="60dp" android:gravity="center">
 
+    <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+              android:id="@+id/text_index" style="@style/text" android:ellipsize="end" android:maxLines="1"
+              android:layout_marginStart="10dp" android:textAlignment="textStart"/>
     <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="100"
               android:id="@+id/name_text" style="@style/text" android:ellipsize="end" android:maxLines="1"
               android:layout_marginStart="10dp" android:textAlignment="textStart"/>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.R;
 import com.pospecstudio.todolist.FilterActivity;
@@ -19,6 +20,7 @@ public class SortedTypeView extends RecyclerView.ViewHolder {
     private final TextView nameText;
     private final GradientDrawable background;
     private final FilterActivity filterActivity;
+    private final ImageButton orderButton;
 
     public SortedTypeView(@NonNull @NotNull View itemView, FilterActivity filterActivity) {
         super(itemView);
@@ -29,16 +31,35 @@ public class SortedTypeView extends RecyclerView.ViewHolder {
         background = (GradientDrawable) itemView.getBackground();
 
         ImageButton deleteButton = itemView.findViewById(R.id.close_button);
+        deleteButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_close_icon));
         deleteButton.setOnClickListener(this::deleteType);
+
+        orderButton = itemView.findViewById(R.id.order_button);
+        orderButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_asc_icon));
+        orderButton.setOnClickListener(this::changeOrder);
     }
 
     private void deleteType(View view) {
         filterActivity.deleteSortingType(getLayoutPosition());
     }
 
+    private void changeOrder(View view) {
+        sortType.setAscending(!sortType.isAscending());
+        filterActivity.save();
+        updateUI();
+    }
+
+    private void updateUI() {
+        if (sortType.isAscending())
+            orderButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_asc_icon));
+        else
+            orderButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_desc_icon));
+    }
+
     public void bind(SortingType sortType) {
         this.sortType = sortType;
         nameText.setText(sortType.getTitle());
+        updateUI();
     }
 
     public void startReordering() {

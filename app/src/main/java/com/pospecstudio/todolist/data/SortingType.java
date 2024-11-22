@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 public class SortingType implements Serializable {
     private final String title;
-    private boolean isAscending;
+    private boolean isAscending = true;
     private final Comparator<? super Item> comparator;
 
     public SortingType(String title, Comparator<? super Item> comparator) {
@@ -26,6 +26,7 @@ public class SortingType implements Serializable {
     }
 
     public int compare(Item a, Item b) {
-        return comparator.compare(a, b);
+        int sign = isAscending ? 1 : -1;
+        return sign * comparator.compare(a, b);
     }
 }

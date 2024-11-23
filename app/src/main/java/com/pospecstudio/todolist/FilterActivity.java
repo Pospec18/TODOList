@@ -13,6 +13,7 @@ import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,11 +83,11 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     private void showSortTypeOptions(View view) {
-        PopupMenu popup = new PopupMenu(this, view);
+        Context wrapper = new ContextThemeWrapper(this, R.style.Pospec_PopupMenu);
+        PopupMenu popup = new PopupMenu(wrapper, view);
         popup.getMenuInflater().inflate(R.menu.sort_type_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(this::addSortType);
         popup.show();
-
     }
 
     private void applyFilledType(Chip chip, FilledType filledType) {

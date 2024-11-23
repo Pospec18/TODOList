@@ -4,7 +4,7 @@
                                                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context="com.pospecstudio.todolist.SwitchListActivity"
-                                                   android:background="@color/bg_200">
+                                                   android:background="@drawable/page_background">
 
     <LinearLayout
             android:orientation="vertical"
@@ -15,7 +15,8 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
+                android:padding="5dp"
+                android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/panel_background"
                 android:layout_weight="0">
             <ImageButton
                     app:srcCompat="@drawable/ic_add_icon"

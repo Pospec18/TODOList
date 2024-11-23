@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.pospecstudio.todolist.MainActivity" android:background="@color/bg_200">
+        tools:context="com.pospecstudio.todolist.MainActivity" android:background="@drawable/page_background">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -28,19 +28,13 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:background="@color/bg_500" android:gravity="center">
+                android:padding="5dp"
+                android:layout_height="wrap_content" android:background="@drawable/panel_background" android:gravity="center">
             <ImageButton
                     app:srcCompat="@drawable/ic_add_icon"
                     android:id="@+id/add" style="@style/bottom_panel_icon_button"
                     android:onClick="add"
                     android:layout_height="wrap_content" android:layout_weight="1" android:contentDescription="@string/add"/>
-            <!--
-            <ImageButton
-                    app:srcCompat="@drawable/ic_done_icon"
-                    android:id="@+id/done" style="@style/bottom_panel_icon_button"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" android:contentDescription="done"/>
-                    -->
             <ImageButton
                     app:srcCompat="@drawable/ic_filter_icon"
                     android:id="@+id/filter" style="@style/bottom_panel_icon_button"

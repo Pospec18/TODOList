@@ -5,7 +5,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context="com.pospecstudio.todolist.FilterActivity"
-                                                   android:background="@color/bg_200">
+                                                   android:background="@drawable/page_background">
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
@@ -70,25 +70,20 @@
             <ImageButton app:srcCompat="@drawable/ic_add_icon"
                          android:layout_width="wrap_content" android:layout_height="48dp"
                          android:background="@drawable/item_background"
-                         android:backgroundTint="@color/blue_700"
+                         android:backgroundTint="@color/blue_500"
                          android:id="@+id/add"
                          android:contentDescription="@string/delete" android:minWidth="48dp" android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="10"
                 android:id="@android:id/list">
         </androidx.recyclerview.widget.RecyclerView>
-        <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:layout_weight="10"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
+                android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/panel_background"
                 android:layout_weight="0">
             <Button
                     android:text="@string/apply"

@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="bg_200">#000000</color>
+    <color name="bg_200">#FF000000</color>
     <color name="bg_500">#FF000053</color>
     <color name="red_200">#E83F7A</color>
     <color name="red_500">#AC0741</color>
@@ -14,7 +14,11 @@
     <color name="blue_200">#405DF1</color>
     <color name="blue_500">#2734AA</color>
     <color name="blue_700">#FF1C2470</color>
-    <color name="gray_200">#323232</color>
-    <color name="gray_500">#222222</color>
-    <color name="gray_700">#0E0E0E</color>
+    <color name="blue_700_50">#821C2470</color>
+    <color name="gray_200">#B7BBD5</color>
+    <color name="gray_500">#888DAB</color>
+    <color name="gray_700">#546088</color>
+<!--    <color name="gray_200">#54576B</color> 373A55 ______ 373A55-->
+<!--    <color name="gray_500">#373A55</color> 1a1c3a 63698c 7a7f97-->
+<!--    <color name="gray_700">#242845</color> 11152f 4c577b 555d79-->
 </resources>

@@ -4,7 +4,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context="com.pospecstudio.todolist.EditListActivity"
-                                                   android:background="@color/bg_200">
+                                                   android:background="@drawable/page_background">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:gravity="center" android:background="@color/bg_500"
+                android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/panel_background"
                 android:layout_weight="0">
             <Button
                     android:text="@string/save"

@@ -27,4 +27,11 @@
     <string name="filter">filter</string>
     <string name="increase">+</string>
     <string name="decrease">-</string>
+    <string name="alphabetically">Alphabetically</string>
+    <string name="current_value">Current value</string>
+    <string name="ideal_value">Ideal value</string>
+    <string name="age">Age</string>
+    <string name="last_used">Last used</string>
+    <string name="most_used">Most used</string>
+    <string name="filled_type">Filled type</string>
 </resources>

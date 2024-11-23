@@ -1,10 +1,16 @@
 package com.pospecstudio.todolist;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -73,29 +79,15 @@ public class FilterActivity extends AppCompatActivity {
         touchHelper.attachToRecyclerView(recyclerView);
 
         ImageButton addSortButton = findViewById(R.id.add);
-        addSortButton.setOnClickListener(this::addSortType);
+        addSortButton.setOnClickListener(this::showSortTypeOptions);
     }
 
-    private void addSortType(View view) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            SortingType alphabet = new SortingType("Alphabetically",
-                    Comparator.comparing((Function<Item, String> & Serializable)Item::getItemName));
-            SortingType idealCount = new SortingType("Ideal count",
-                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getIdealCount));
-            SortingType currCount = new SortingType("Current count",
-                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getCurrCount));
-            SortingType age = new SortingType("Age",
-                    Comparator.comparing((Function<Item, ZonedDateTime> & Serializable)Item::getCreatedTime));
-            SortingType lastUsed = new SortingType("Last used",
-                    Comparator.comparing((Function<Item, ZonedDateTime> & Serializable)Item::getChangedTime));
-            SortingType mostUsed = new SortingType("Most used",
-                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getNumberOfChanges));
-            SortingType state = new SortingType("State",
-                    Comparator.comparing((Function<Item, FilledType> & Serializable)Item::getFilledType));
-            itemHolder.getSortingOrder().add(idealCount);
-            recyclerView.getAdapter().notifyItemInserted(itemHolder.getSortingOrder().size() - 1);
-            save();
-        }
+    private void showSortTypeOptions(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.getMenuInflater().inflate(R.menu.sort_type_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(this::addSortType);
+        popup.show();
+
     }
 
     private void applyFilledType(Chip chip, FilledType filledType) {
@@ -126,5 +118,42 @@ public class FilterActivity extends AppCompatActivity {
 
     public void save() {
         SaveAndLoad.saveItems(itemHolder, getApplicationContext());
+    }
+
+    private boolean addSortType(@NonNull MenuItem item) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+            return false;
+
+        SortingType toAdd;
+        Context ctx = getApplicationContext();
+        int id = item.getItemId();
+        if (id == R.id.alpha)
+            toAdd = new SortingType(ctx.getString(R.string.alphabetically),
+                    Comparator.comparing((Function<Item, String> & Serializable) Item::getItemName));
+        else if (id == R.id.current)
+            toAdd = new SortingType(ctx.getString(R.string.current_value),
+                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getCurrCount));
+        else if (id == R.id.ideal)
+            toAdd = new SortingType(ctx.getString(R.string.ideal_value),
+                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getIdealCount));
+        else if (id == R.id.age)
+            toAdd = new SortingType(ctx.getString(R.string.age),
+                    Comparator.comparing((Function<Item, ZonedDateTime> & Serializable)Item::getCreatedTime));
+        else if (id == R.id.last_used)
+            toAdd = new SortingType(ctx.getString(R.string.last_used),
+                    Comparator.comparing((Function<Item, ZonedDateTime> & Serializable)Item::getChangedTime));
+        else if (id == R.id.frequency)
+            toAdd = new SortingType(ctx.getString(R.string.most_used),
+                    Comparator.comparing((Function<Item, Integer> & Serializable)Item::getNumberOfChanges));
+        else if (id == R.id.state)
+            toAdd = new SortingType(ctx.getString(R.string.filled_type),
+                    Comparator.comparing((Function<Item, FilledType> & Serializable)Item::getFilledType));
+        else
+            return false;
+
+        itemHolder.getSortingOrder().add(toAdd);
+        recyclerView.getAdapter().notifyItemInserted(itemHolder.getSortingOrder().size() - 1);
+        save();
+        return true;
     }
 }

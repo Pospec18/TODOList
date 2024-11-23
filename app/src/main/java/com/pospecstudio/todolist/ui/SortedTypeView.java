@@ -21,6 +21,7 @@ public class SortedTypeView extends RecyclerView.ViewHolder {
     private final GradientDrawable background;
     private final FilterActivity filterActivity;
     private final ImageButton orderButton;
+    private boolean canDelete = true;
 
     public SortedTypeView(@NonNull @NotNull View itemView, FilterActivity filterActivity) {
         super(itemView);
@@ -40,7 +41,10 @@ public class SortedTypeView extends RecyclerView.ViewHolder {
     }
 
     private void deleteType(View view) {
-        filterActivity.deleteSortingType(getLayoutPosition());
+        if (canDelete) {
+            canDelete = false;
+            filterActivity.deleteSortingType(getLayoutPosition());
+        }
     }
 
     private void changeOrder(View view) {

@@ -34,7 +34,6 @@ public class FilterActivity extends AppCompatActivity {
     private Chip partially;
     private Chip empty;
     private Chip optional;
-
     private RecyclerView recyclerView;
 
     @Override

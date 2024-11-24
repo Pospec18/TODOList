@@ -54,8 +54,6 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         currentText.setOnEditorActionListener(this::setCurrentText);
         itemView.findViewById(R.id.increase).setOnClickListener(this::increase);
         itemView.findViewById(R.id.decrease).setOnClickListener(this::decrease);
-
-        // indexText.setText(getAdapterPosition());
     }
 
     public void bind(Item item) {
@@ -67,7 +65,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         drawIndex();
     }
 
-    private void updateColors() {
+    public void updateColors() {
         FilledType type = item.getFilledType();
         background.setColor(FilledTypeToColor.primary(type, context));
         currentText.setText(String.format(Locale.ENGLISH, "%d", item.getCurrCount()));

@@ -10,6 +10,7 @@ import com.example.todolist.R;
 import com.pospecstudio.todolist.data.Item;
 import com.pospecstudio.todolist.data.ItemHolder;
 import com.pospecstudio.todolist.data.SaveAndLoad;
+import com.pospecstudio.todolist.ui.ConfirmDialogFragment;
 import com.pospecstudio.todolist.ui.InfoDialogFragment;
 
 public class EditItemActivity extends AppCompatActivity {
@@ -86,9 +87,11 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void deleteItem(View v) {
-        itemHolder.deleteItem(editedItem);
-        saveItems();
-        finish();
+        ConfirmDialogFragment.showDialog("Delete item?", ((dialog, which) -> {
+            itemHolder.deleteItem(editedItem);
+            saveItems();
+            finish();
+        }), getSupportFragmentManager());
     }
 
     public void saveItems() {

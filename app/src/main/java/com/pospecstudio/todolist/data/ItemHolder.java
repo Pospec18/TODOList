@@ -151,4 +151,9 @@ public class ItemHolder implements Serializable, CSVSerializable, Printable {
             builder.append('\n');
         }
     }
+
+    public void clear() {
+        for (Item i: items)
+            i.setCurrCount(0);
+    }
 }

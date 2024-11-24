@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void done(View v) {
-
+    public void clear(View v) {
+        ConfirmDialogFragment.showDialog("Clear values of items?", (dialog, which) -> {
+            itemHolder.clear();
+            ItemsAdapter newAdapter = new ItemsAdapter(getApplicationContext(), itemHolder.getFilteredItems(), this);
+            recyclerView.setAdapter(newAdapter);
+            saveItems();
+        }, getSupportFragmentManager());
     }
 
     public void filter(View v) {

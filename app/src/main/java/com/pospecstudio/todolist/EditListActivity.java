@@ -17,6 +17,7 @@ import com.example.todolist.R;
 import com.pospecstudio.todolist.data.ItemHolder;
 import com.pospecstudio.todolist.data.ItemListsHolder;
 import com.pospecstudio.todolist.data.SaveAndLoad;
+import com.pospecstudio.todolist.ui.ConfirmDialogFragment;
 import com.pospecstudio.todolist.ui.InfoDialogFragment;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
@@ -154,10 +155,12 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void deleteList(View v) {
-        lists.removeList(list);
-        SaveAndLoad.saveLists(lists, getApplicationContext());
-        SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
-        finish();
+        ConfirmDialogFragment.showDialog("Delete list?", ((dialog, which) -> {
+            lists.removeList(list);
+            SaveAndLoad.saveLists(lists, getApplicationContext());
+            SaveAndLoad.deleteFile(list.getFileName(), getApplicationContext());
+            finish();
+        }), getSupportFragmentManager());
     }
 
     public void listToClipboard(View v) {

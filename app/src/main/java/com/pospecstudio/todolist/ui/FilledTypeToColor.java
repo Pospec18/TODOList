@@ -22,6 +22,19 @@ public class FilledTypeToColor {
     public static int secondary(FilledType type, Context context) {
         switch (type) {
             case FULLY:
+                return ContextCompat.getColor(context, R.color.green_600);
+            case PARTIALLY:
+                return ContextCompat.getColor(context, R.color.blue_600);
+            case OPTIONAL:
+                return ContextCompat.getColor(context, R.color.gray_600);
+            default:
+                return ContextCompat.getColor(context, R.color.red_600);
+        }
+    }
+
+    public static int darker(FilledType type, Context context) {
+        switch (type) {
+            case FULLY:
                 return ContextCompat.getColor(context, R.color.green_700);
             case PARTIALLY:
                 return ContextCompat.getColor(context, R.color.blue_700);
@@ -29,6 +42,19 @@ public class FilledTypeToColor {
                 return ContextCompat.getColor(context, R.color.gray_700);
             default:
                 return ContextCompat.getColor(context, R.color.red_700);
+        }
+    }
+
+    public static int semitransparent(FilledType type, Context context) {
+        switch (type) {
+            case FULLY:
+                return ContextCompat.getColor(context, R.color.green_500_50);
+            case PARTIALLY:
+                return ContextCompat.getColor(context, R.color.blue_500_50);
+            case OPTIONAL:
+                return ContextCompat.getColor(context, R.color.gray_500_50);
+            default:
+                return ContextCompat.getColor(context, R.color.red_500_50);
         }
     }
 

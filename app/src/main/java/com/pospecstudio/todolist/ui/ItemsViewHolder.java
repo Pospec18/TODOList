@@ -67,11 +67,12 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
 
     public void updateColors() {
         FilledType type = item.getFilledType();
-        background.setColor(FilledTypeToColor.primary(type, context));
+        background.mutate();
+        background.setColors(new int[] { FilledTypeToColor.primary(type, context), FilledTypeToColor.semitransparent(type, context)});
         currentText.setText(String.format(Locale.ENGLISH, "%d", item.getCurrCount()));
         currentTextBackground.setColor(FilledTypeToColor.secondary(type, context));
         editButton.setColorFilter(FilledTypeToColor.primary(type, context), android.graphics.PorterDuff.Mode.MULTIPLY);
-        indexText.setTextColor(FilledTypeToColor.secondary(type, context));
+        indexText.setTextColor(FilledTypeToColor.darker(type, context));
     }
 
     public void increase(View v) {

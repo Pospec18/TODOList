@@ -19,8 +19,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/item_background</item>
-        <item name="android:backgroundTint">@color/blue_500</item>
+        <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:padding">5dp</item>
@@ -30,7 +29,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="change_count" parent="ShapeAppearanceOverlay.Material3.Button">
@@ -38,7 +37,7 @@
         <item name="android:textAppearance">@style/text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:minWidth">48dp</item>
@@ -70,7 +69,7 @@
     </style>
     <style name="item_value" parent="text">
         <item name="android:gravity">center</item>
-        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_margin">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">0</item>

@@ -6,8 +6,5 @@
             android:left="10dp"
             android:bottom="2dp"
             android:right="10dp" />
-    <gradient
-            android:endColor="@color/blue_500_50"
-            android:startColor="@color/blue_500"
-            android:type="linear" />
+    <solid android:color="@color/blue_500"/>
 </shape>

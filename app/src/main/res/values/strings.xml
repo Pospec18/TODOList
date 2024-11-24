@@ -30,8 +30,8 @@
     <string name="alphabetically">Alphabetically</string>
     <string name="current_value">Current value</string>
     <string name="ideal_value">Ideal value</string>
-    <string name="age">Age</string>
+    <string name="age">Time created</string>
     <string name="last_used">Last used</string>
     <string name="most_used">Most used</string>
-    <string name="filled_type">Filled type</string>
+    <string name="filled_type">Color</string>
 </resources>

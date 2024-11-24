@@ -20,7 +20,6 @@
               android:minWidth="48dp"
               tools:ignore="LabelFor" android:autofillHints="1"
               android:imeOptions="actionDone" android:singleLine="true"/>
-
     <LinearLayout style="@style/item_value" android:id="@+id/edit_panel" android:layout_marginEnd="0dp">
         <Button android:layout_width="wrap_content" android:layout_height="match_parent" style="@style/change_count"
                 android:text="@string/increase" android:stateListAnimator="@null" android:id="@+id/increase"/>
@@ -29,7 +28,7 @@
 
         <ImageButton android:layout_width="wrap_content" android:layout_height="match_parent"
                      android:background="@drawable/button_background" android:id="@+id/close_button"
-                     android:contentDescription="@string/edit_item" android:minWidth="48dp" android:layout_marginStart="4dp"/>
+                     android:contentDescription="@string/edit_item" android:minWidth="48dp" android:layout_marginStart="0dp"/>
     </LinearLayout>
 
 </LinearLayout>

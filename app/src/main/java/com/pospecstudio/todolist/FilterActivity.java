@@ -83,7 +83,7 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     private void showSortTypeOptions(View view) {
-        Context wrapper = new ContextThemeWrapper(this, R.style.custom_popup_menu);
+        Context wrapper = new ContextThemeWrapper(this, R.style.popup_menu);
         PopupMenu popup = new PopupMenu(wrapper, view);
         popup.getMenuInflater().inflate(R.menu.sort_type_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(this::addSortType);

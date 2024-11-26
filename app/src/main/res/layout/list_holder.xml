@@ -9,7 +9,7 @@
 
     <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="100"
               android:id="@+id/name_text" style="@style/text" android:ellipsize="end" android:maxLines="1"
-              android:layout_marginStart="10dp" android:textAlignment="textStart"/>
+              android:layout_marginStart="16dp" android:textAlignment="textStart"/>
 
     <ImageButton android:background="@drawable/button_background" android:backgroundTint="@color/white"
                  android:src="@drawable/ic_icon_settings"

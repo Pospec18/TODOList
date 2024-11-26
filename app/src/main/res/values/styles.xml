@@ -22,6 +22,7 @@
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_margin">5dp</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:gravity">center</item>
     </style>
@@ -79,7 +80,17 @@
         <item name="popupMenuStyle">@style/popup_menu</item>
     </style>
     <style name="popup_menu" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="android:colorBackground">@color/blue_700</item>
+        <item name="android:background">@color/blue_500</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="alert_dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/positive_button</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:colorAccent">@color/white</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    <style name="positive_button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/blue_200</item>
     </style>
 </resources>

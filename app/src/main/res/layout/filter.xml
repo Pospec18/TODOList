@@ -30,24 +30,28 @@
                     android:layout_height="wrap_content" android:id="@+id/fully"
                     style="@style/filter_chip"
                     app:chipSurfaceColor="@color/green_500"
+                    android:contentDescription="@string/filled"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/partially"
                     style="@style/filter_chip"
                     app:chipSurfaceColor="@color/blue_500"
+                    android:contentDescription="@string/partially"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/empty"
                     style="@style/filter_chip"
                     app:chipSurfaceColor="@color/red_500"
+                    android:contentDescription="@string/empty"
             />
             <com.google.android.material.chip.Chip
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/optional"
                     style="@style/filter_chip"
                     app:chipSurfaceColor="@color/gray_500"
+                    android:contentDescription="@string/optional"
             />
         </LinearLayout>
         <LinearLayout
@@ -72,11 +76,12 @@
                          android:background="@drawable/button_background"
                          android:backgroundTint="@color/blue_500"
                          android:id="@+id/add"
-                         android:contentDescription="@string/delete" android:minWidth="48dp" android:layout_marginEnd="10dp"/>
+                         android:contentDescription="@string/add" android:minWidth="48dp" android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/bg"
                 android:paddingTop="5dp"
                 android:layout_weight="10"
                 android:id="@android:id/list">
